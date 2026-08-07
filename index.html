@@ -4,488 +4,728 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sleep Better, Learn Better — CGS Community Project 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Libre+Franklin:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+/* ============================================
+   TOKENS
+   ============================================ */
 :root{
-  --navy:#0E1A33;--navy-mid:#16264A;--navy-light:#1E3560;
-  --purple:#A9A6E0;--purple-light:#C5B8E8;--purple-pale:#EEEDFE;
-  --gold:#F6C97A;--gold-dark:#E8A85C;
-  --white:#FFFFFF;--paper:#F4F1EA;--text:#1A1A2E;
-  --muted:#6B7FA6;--border:rgba(169,166,224,0.25);
-  --success:#4CAF7D;--danger:#E05C5C;
-  --radius:10px;--radius-lg:16px;
+  --ink:#14181D;
+  --ink-soft:#1B222A;
+  --ink-line:rgba(241,236,223,0.14);
+  --ink-line-soft:rgba(241,236,223,0.08);
+  --ink-text:#EDE7D8;
+  --ink-text-muted:rgba(237,231,216,0.62);
+
+  --paper:#F1ECDF;
+  --paper-soft:#E7E0CD;
+  --paper-line:rgba(20,24,29,0.14);
+  --paper-line-soft:rgba(20,24,29,0.08);
+  --text:#22272E;
+  --text-muted:#6C6659;
+
+  --brass:#A97D33;
+  --brass-deep:#7E5D22;
+  --brass-bright:#C99A48;
+  --pine:#38564A;
+  --pine-deep:#26382F;
+  --rust:#9C4536;
+
+  --n1:#93A9B8;
+  --n2:#6E7E93;
+  --n3:#38564A;
+  --rem:#A97D33;
+
+  --radius:3px;
+  --radius-lg:5px;
+  --wrap:1120px;
+  --measure:62ch;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--text);min-height:100vh;font-size:15px}
-h1,h2,h3{font-family:'Playfair Display',serif}
 
-/* NAV */
-nav{background:var(--navy);padding:0;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,0.3)}
-.nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none}
-.nav-inner::-webkit-scrollbar{display:none}
-.brand{padding:14px 20px;color:var(--gold);font-family:'Playfair Display',serif;font-size:15px;white-space:nowrap;border-right:1px solid rgba(255,255,255,0.08);cursor:pointer;user-select:none;flex-shrink:0}
-.ntab{padding:14px 16px;color:rgba(255,255,255,0.55);font-size:13px;border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;display:flex;align-items:center;gap:6px}
-.ntab:hover{color:rgba(255,255,255,0.85)}
-.ntab.on{color:var(--purple-light);border-bottom-color:var(--purple-light)}
-.ntab .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);display:none}
-.ntab.on .dot{display:inline-block}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Libre Franklin',sans-serif;background:var(--paper);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.serif{font-family:'Fraunces',serif}
+.mono{font-family:'IBM Plex Mono',monospace}
+img,svg{display:block;max-width:100%}
+button{font:inherit}
+a{color:inherit}
 
-/* PAGE */
-.page{display:none;max-width:960px;margin:0 auto;padding:2rem 1.25rem}
-.page.on{display:block}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.001ms!important;animation-iteration-count:1!important;transition-duration:0.001ms!important;scroll-behavior:auto!important}
+}
 
-/* SHARED */
-.page-title{font-size:32px;font-weight:600;color:var(--navy);margin-bottom:6px}
-.page-sub{font-size:15px;color:var(--muted);line-height:1.6;margin-bottom:2rem;max-width:600px}
-.card{background:var(--white);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid var(--border);margin-bottom:12px}
-.card h3{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:6px}
-.card p{font-size:13.5px;color:#555;line-height:1.6}
-.badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11.5px;font-weight:500}
-.badge-purple{background:var(--purple-pale);color:var(--navy-mid)}
-.badge-gold{background:rgba(246,201,122,0.2);color:#7A5C00}
-.badge-navy{background:var(--navy-mid);color:var(--purple-light)}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-.divider{height:1px;background:var(--border);margin:1.5rem 0}
-.cta{display:inline-block;padding:11px 22px;border-radius:var(--radius);background:var(--navy);color:var(--white);font-size:14px;font-weight:500;cursor:pointer;border:none;transition:all 0.2s}
-.cta:hover{background:var(--navy-mid);transform:translateY(-1px)}
-.cta.outline{background:transparent;border:1.5px solid var(--navy);color:var(--navy)}
-.cta.outline:hover{background:var(--navy);color:var(--white)}
-.cta.purple{background:var(--purple);color:var(--navy)}
-.cta.purple:hover{background:var(--purple-light)}
+:focus-visible{outline:2px solid var(--brass-bright);outline-offset:3px}
 
-/* HOME */
-.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 60%,#2A3F6F 100%);border-radius:var(--radius-lg);padding:2.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-30px;right:-30px;width:200px;height:200px;border-radius:50%;background:rgba(169,166,224,0.1)}
-.hero::after{content:'';position:absolute;bottom:-50px;right:100px;width:150px;height:150px;border-radius:50%;background:rgba(246,201,122,0.07)}
-.hero h1{font-size:36px;color:var(--white);margin-bottom:8px;position:relative;z-index:1}
-.hero h1 em{color:var(--purple-light);font-style:italic}
-.hero p{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:500px;position:relative;z-index:1;margin-bottom:1.25rem}
-.hero-credits{font-size:12px;color:rgba(255,255,255,0.4);position:relative;z-index:1}
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.grain{
+  background-image:radial-gradient(rgba(241,236,223,0.05) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.grain-dark{
+  background-image:radial-gradient(rgba(241,236,223,0.045) 1px,transparent 1px);
+  background-size:24px 24px;
+}
 
-.feel-box{background:var(--white);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid var(--border)}
-.feel-box h3{font-size:17px;font-weight:600;color:var(--navy);margin-bottom:4px}
-.feel-box .sub{font-size:13px;color:var(--muted);margin-bottom:1.25rem}
-.feel-display{background:var(--paper);border-radius:var(--radius);padding:1.25rem;margin-top:1rem;text-align:center;transition:all 0.3s}
-.feel-label{font-size:22px;font-weight:600;color:var(--navy);margin-bottom:6px}
-.feel-desc{font-size:13px;color:var(--muted);line-height:1.5}
-.feel-sub{font-size:11.5px;color:var(--danger);margin-top:6px;font-style:italic}
-.hrs-row{display:flex;align-items:center;gap:12px}
-.hrs-row input[type=range]{flex:1;accent-color:var(--navy)}
-.hrs-val{font-size:24px;font-weight:600;color:var(--navy);min-width:60px;text-align:center;background:var(--purple-pale);border-radius:var(--radius);padding:4px 8px}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--brass-deep);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--brass-deep);display:block}
+.eyebrow.on-ink{color:var(--brass-bright)}
+.eyebrow.on-ink::before{background:var(--brass-bright)}
 
-.fact-box{background:var(--navy);border-radius:var(--radius-lg);padding:1.5rem;color:var(--white);position:relative;overflow:hidden}
-.fact-box::before{content:'"';font-family:'Playfair Display',serif;font-size:120px;color:rgba(255,255,255,0.05);position:absolute;top:-20px;left:10px;line-height:1}
-.fact-num{font-size:11px;letter-spacing:0.1em;color:var(--purple-light);text-transform:uppercase;margin-bottom:10px}
-.fact-text{font-size:15px;line-height:1.6;color:rgba(255,255,255,0.88);font-family:'Playfair Display',serif;font-style:italic;min-height:50px;transition:opacity 0.3s;position:relative;z-index:1}
-.fact-dots{display:flex;gap:5px;margin-top:12px}
-.fact-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:background 0.2s}
-.fact-dot.on{background:var(--purple-light)}
+.hr{height:1px;background:var(--paper-line);border:none;margin:0}
+.hr.on-ink{background:var(--ink-line)}
 
-.stat-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:1.5rem}
-.stat-item{background:var(--white);padding:1.25rem;text-align:center}
-.stat-num{font-family:'Playfair Display',serif;font-size:32px;color:var(--navy);margin-bottom:4px}
-.stat-label{font-size:12px;color:var(--muted);line-height:1.4}
+/* ============================================
+   NAV
+   ============================================ */
+header.site-nav{background:var(--ink);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--ink-line)}
+.nav-row{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand-mark{display:flex;align-items:baseline;gap:8px;background:none;border:none;cursor:pointer;padding:0;color:var(--ink-text)}
+.brand-mark .brand-name{font-family:'Fraunces',serif;font-size:19px;font-weight:600;letter-spacing:-0.01em}
+.brand-mark .brand-dot{width:6px;height:6px;border-radius:50%;background:var(--brass-bright);flex-shrink:0}
 
-.home-nav-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:1.5rem}
-.hnav{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;cursor:pointer;transition:all 0.2s;text-align:center}
-.hnav:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(169,166,224,0.25)}
-.hnav h3{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:3px}
-.hnav p{font-size:11.5px;color:var(--muted)}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none;margin:0;padding:0}
+.nav-links button{background:none;border:none;color:var(--ink-text-muted);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;padding:10px 14px;cursor:pointer;position:relative;transition:color 0.15s}
+.nav-links button::after{content:'';position:absolute;left:14px;right:14px;bottom:5px;height:1px;background:var(--brass-bright);transform:scaleX(0);transform-origin:left;transition:transform 0.2s}
+.nav-links button:hover{color:var(--ink-text)}
+.nav-links button[aria-current="page"]{color:var(--brass-bright)}
+.nav-links button[aria-current="page"]::after{transform:scaleX(1)}
 
-.owl-quiz{background:var(--purple-pale);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid rgba(169,166,224,0.3)}
-.owl-quiz h3{font-size:17px;font-weight:600;color:var(--navy);margin-bottom:4px}
-.owl-quiz .sub{font-size:13px;color:var(--muted);margin-bottom:1rem}
-.owl-options{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.owl-btn{padding:8px 16px;border-radius:var(--radius);border:1.5px solid var(--purple);background:transparent;color:var(--navy-mid);font-size:13px;cursor:pointer;transition:all 0.2s}
-.owl-btn:hover,.owl-btn.on{background:var(--navy-mid);color:var(--white);border-color:var(--navy-mid)}
-.owl-result{background:var(--white);border-radius:var(--radius);padding:1rem;margin-top:10px;display:none}
-.owl-result.on{display:block}
-.owl-type{font-size:18px;font-weight:600;color:var(--navy);margin-bottom:4px}
-.owl-desc{font-size:13px;color:var(--muted);line-height:1.5}
+.nav-toggle{display:none;background:none;border:1px solid var(--ink-line);border-radius:var(--radius);width:38px;height:34px;cursor:pointer;position:relative}
+.nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{content:'';position:absolute;left:9px;right:9px;height:1px;background:var(--ink-text)}
+.nav-toggle span{top:50%}
+.nav-toggle span::before{top:-6px}
+.nav-toggle span::after{top:6px}
 
-/* SCIENCE */
-.stage-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
-.stage-btn{padding:9px 16px;border-radius:var(--radius);border:1.5px solid var(--border);background:var(--white);color:var(--navy);font-size:13px;cursor:pointer;transition:all 0.2s}
-.stage-btn:hover{border-color:var(--purple)}
-.stage-btn.on{background:var(--navy);color:var(--white);border-color:var(--navy)}
-.stage-card{background:var(--white);border-radius:var(--radius-lg);padding:1.5rem;border-left:4px solid var(--purple);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
-.stage-card h3{font-size:20px;color:var(--navy);margin-bottom:6px}
-.stage-card .badge{margin-bottom:10px}
-.stage-card p{font-size:14px;color:#555;line-height:1.7;margin-bottom:8px}
-.stage-card .note{font-size:13px;color:var(--muted);font-style:italic}
+.nav-mobile{display:none;flex-direction:column;background:var(--ink);border-top:1px solid var(--ink-line)}
+.nav-mobile button{text-align:left;background:none;border:none;border-bottom:1px solid var(--ink-line-soft);color:var(--ink-text-muted);font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;padding:16px 28px;cursor:pointer}
+.nav-mobile button[aria-current="page"]{color:var(--brass-bright)}
+.nav-mobile.is-open{display:flex}
 
-.cycle-wrap{background:var(--navy);border-radius:var(--radius-lg);padding:1.5rem;overflow-x:auto}
-.cycle-title{font-size:12px;color:var(--purple-light);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px}
-.cycle-row{display:flex;align-items:center;gap:4px;min-width:600px}
-.cblk{border-radius:6px;height:44px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0}
-.carrow{color:rgba(255,255,255,0.25);font-size:11px;flex-shrink:0}
-.cycle-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}
-.cleg{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,0.6)}
-.cleg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+@media (max-width:760px){
+  .nav-links{display:none}
+  .nav-toggle{display:block}
+}
 
-.hrs-science{background:var(--purple-pale);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid rgba(169,166,224,0.3)}
-.hrs-science h3{font-size:17px;font-weight:600;color:var(--navy);margin-bottom:4px}
-.cycles-display{display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap}
-.cycle-pill{background:var(--navy);color:var(--white);border-radius:99px;padding:5px 14px;font-size:12px;transition:all 0.3s}
-.cycle-pill.dim{background:var(--border);color:var(--muted)}
-.cycle-pill.rem{background:var(--purple);color:var(--navy);font-weight:500}
+/* ============================================
+   PAGES
+   ============================================ */
+.page{display:none}
+.page.is-on{display:block}
+.page-head{padding:56px 0 40px}
+.page-title{font-size:clamp(30px,4.4vw,42px);font-weight:600;color:var(--text);margin:0 0 12px;line-height:1.08;letter-spacing:-0.01em}
+.page-sub{font-size:16px;color:var(--text-muted);line-height:1.7;max-width:var(--measure);margin:0}
 
-/* ASSESSMENT */
-.assess-q{margin-bottom:1.75rem}
-.q-label{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:10px;display:block}
-.sl-row{display:flex;align-items:center;gap:14px}
-.sl-row input[type=range]{flex:1;accent-color:var(--navy)}
-.slval{min-width:80px;text-align:center;font-size:14px;font-weight:600;color:var(--navy-mid);background:var(--purple-pale);border-radius:var(--radius);padding:5px 10px}
-.opts{display:flex;gap:7px;flex-wrap:wrap}
-.obtn{padding:8px 16px;border-radius:var(--radius);border:1.5px solid var(--border);background:var(--white);color:var(--muted);font-size:13.5px;cursor:pointer;transition:all 0.2s}
-.obtn:hover{border-color:var(--purple);color:var(--navy)}
-.obtn.on{background:var(--navy);color:var(--white);border-color:var(--navy)}
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);border-radius:var(--radius);padding:13px 22px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:background 0.18s,color 0.18s}
+.btn:hover{background:var(--brass-deep);border-color:var(--brass-deep);color:var(--paper)}
+.btn--ghost{background:transparent;color:var(--text);border-color:var(--paper-line)}
+.btn--ghost:hover{background:var(--text);color:var(--paper);border-color:var(--text)}
+.btn--on-ink{background:var(--brass);color:var(--ink);border-color:var(--brass)}
+.btn--on-ink:hover{background:var(--brass-bright);border-color:var(--brass-bright)}
+.btn--on-ink.btn--ghost{background:transparent;color:var(--ink-text-muted);border-color:var(--ink-line)}
+.btn--on-ink.btn--ghost:hover{background:var(--ink-line-soft);color:var(--ink-text)}
 
-.score-reveal{background:var(--navy);border-radius:var(--radius-lg);padding:1.75rem;display:none;margin-top:1.25rem}
-.score-reveal.on{display:block}
-.score-big{font-family:'Playfair Display',serif;font-size:56px;color:var(--white);line-height:1}
-.score-label{font-size:18px;font-weight:600;color:var(--purple-light);margin:8px 0 6px}
-.score-desc{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:1rem}
-.score-bar-t{height:8px;background:rgba(255,255,255,0.1);border-radius:6px;overflow:hidden;margin-bottom:1rem}
-.score-bar-f{height:100%;border-radius:6px;background:var(--purple-light);transition:width 0.8s cubic-bezier(0.16,1,0.3,1)}
-.tips-inline{margin-top:1.5rem}
-.tip-pill{background:rgba(255,255,255,0.08);border-radius:var(--radius);padding:1rem;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
-.tip-pill-text h4{font-size:14px;font-weight:600;color:var(--white);margin-bottom:3px}
-.tip-pill-text p{font-size:12.5px;color:rgba(255,255,255,0.65);line-height:1.5}
+/* ============================================
+   HOME — HERO
+   ============================================ */
+.hero{background:var(--ink);color:var(--ink-text);position:relative}
+.hero-inner{display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;padding:76px 0 0}
+.hero h1{font-size:clamp(38px,6vw,64px);font-weight:600;line-height:1.02;letter-spacing:-0.015em;margin:0 0 22px}
+.hero h1 em{font-style:italic;color:var(--brass-bright);font-weight:500}
+.hero-lede{font-size:17.5px;line-height:1.7;color:var(--ink-text-muted);max-width:46ch;margin:0}
 
-/* MYTHS */
-.myth-score-bar{background:var(--navy);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:16px}
-.mscore-big{font-family:'Playfair Display',serif;font-size:36px;color:var(--white)}
-.mscore-sub{font-size:13px;color:var(--purple-light)}
-.myth-progress{flex:1;height:6px;background:rgba(255,255,255,0.15);border-radius:6px;overflow:hidden}
-.myth-prog-fill{height:100%;background:var(--purple-light);border-radius:6px;transition:width 0.4s}
+.dial{padding-top:6px}
+.dial svg{width:100%;height:auto}
+.dial-caption{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-text-muted);margin-top:10px;text-align:center}
 
-.myth-card{background:var(--white);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;border:1px solid var(--border);margin-bottom:10px}
-.myth-q{font-size:14.5px;font-weight:500;color:var(--navy);margin-bottom:10px;line-height:1.5}
-.myth-btns{display:flex;gap:8px;margin-bottom:8px}
-.mbtn{padding:8px 18px;border-radius:var(--radius);border:1.5px solid var(--border);font-size:13px;cursor:pointer;background:var(--white);color:var(--muted);transition:all 0.2s;font-family:'DM Sans',sans-serif}
-.mbtn:hover{border-color:var(--navy);color:var(--navy)}
-.mbtn.correct{background:rgba(76,175,125,0.12);color:#2D7A56;border-color:#4CAF7D}
-.mbtn.wrong{background:rgba(224,92,92,0.1);color:#A33030;border-color:var(--danger)}
-.myth-reveal{display:none;padding-top:10px;border-top:1px solid var(--border);font-size:13px;color:#555;line-height:1.6}
-.myth-reveal.on{display:block}
-.mresult{font-weight:600;margin-bottom:4px;font-size:14px}
-.mresult.right{color:var(--success)}.mresult.wrong{color:var(--danger)}
-.myth-cat{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+.stat-row{display:flex;margin-top:60px;border-top:1px solid var(--ink-line)}
+.stat-cell{flex:1;padding:26px 0 30px;border-right:1px solid var(--ink-line)}
+.stat-cell:last-child{border-right:none}
+.stat-num{font-family:'IBM Plex Mono',monospace;font-size:30px;color:var(--brass-bright);letter-spacing:-0.01em}
+.stat-label{font-size:13px;color:var(--ink-text-muted);line-height:1.5;margin-top:8px;max-width:22ch}
 
-/* HYGIENE */
-.hyg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.hyg-card{background:var(--white);border-radius:var(--radius-lg);padding:1.25rem;border:1px solid var(--border);border-top:3px solid var(--purple)}
-.hyg-card h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px}
-.hyg-card p{font-size:13px;color:#666;line-height:1.55}
-.hyg-card .why{font-size:12px;color:var(--muted);font-style:italic;margin-top:7px;padding-top:7px;border-top:1px solid var(--border)}
+@media (max-width:860px){
+  .hero-inner{grid-template-columns:1fr;gap:40px;padding-top:52px}
+  .stat-row{flex-direction:column}
+  .stat-cell{border-right:none;border-bottom:1px solid var(--ink-line);padding:20px 0}
+}
 
-/* GAME */
-#game-page{background:var(--navy)}
-#game-page .page-title{color:var(--white)}
-#game-page .page-sub{color:rgba(255,255,255,0.6)}
-.game-area{background:var(--navy-mid);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid rgba(255,255,255,0.1);position:relative;overflow:hidden;min-height:400px;user-select:none}
-.game-hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
-.g-score{font-family:'Playfair Display',serif;font-size:28px;color:var(--white)}
-.g-timer{font-size:20px;font-weight:600;color:var(--gold)}
-.g-health{display:flex;gap:6px}
-.heart{width:14px;height:14px;border-radius:50%;background:var(--gold);display:inline-block;transition:background 0.2s,opacity 0.2s}
-.heart.lost{background:rgba(255,255,255,0.15);opacity:0.6}
-.game-field{position:relative;height:300px;background:rgba(0,0,0,0.2);border-radius:var(--radius);overflow:hidden}
+/* ============================================
+   HOME — PANELS (feel / fact)
+   ============================================ */
+.panels{padding:64px 0;display:grid;grid-template-columns:0.85fr 1.15fr;gap:0}
+.panel{border:1px solid var(--paper-line)}
+.panel + .panel{border-left:none}
+
+.instrument{padding:30px 28px 32px;background:var(--paper)}
+.instrument h3{font-size:21px;font-weight:600;margin:0 0 6px}
+.instrument .sub{font-size:13.5px;color:var(--text-muted);margin-bottom:22px;line-height:1.55}
+.slider-row{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:2px;background:var(--paper-line);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--ink);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--ink);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--ink);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--ink);cursor:pointer;border:none}
+.readout{font-family:'IBM Plex Mono',monospace;font-size:15px;min-width:64px;text-align:center;border:1px solid var(--paper-line);padding:7px 4px;color:var(--text)}
+.instrument-face{border-top:1px solid var(--paper-line);padding-top:18px;transition:border-color 0.25s}
+.feel-label{font-size:20px;font-weight:600;font-family:'Fraunces',serif;margin-bottom:6px}
+.feel-desc{font-size:13.5px;color:var(--text-muted);line-height:1.6}
+.feel-sub{font-size:12px;color:var(--rust);margin-top:10px;font-style:italic}
+
+.quote-panel{background:var(--ink);color:var(--ink-text);padding:30px 32px;position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:280px}
+.quote-num{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-text-muted)}
+.quote-text{font-family:'Fraunces',serif;font-style:italic;font-size:21px;line-height:1.5;margin:22px 0;color:var(--ink-text);transition:opacity 0.25s}
+.quote-marks{display:flex;gap:8px}
+.quote-mark{width:18px;height:2px;background:var(--ink-line);cursor:pointer;transition:background 0.2s;border:none;padding:0}
+.quote-mark.is-on{background:var(--brass-bright)}
+
+@media (max-width:860px){
+  .panels{grid-template-columns:1fr}
+  .panel + .panel{border-left:1px solid var(--paper-line);border-top:none}
+}
+
+/* ============================================
+   HOME — OWL QUIZ
+   ============================================ */
+.field-test{padding:0 0 64px}
+.field-test-inner{border:1px solid var(--paper-line);border-left:3px solid var(--brass);padding:32px 32px 36px}
+.field-test h3{font-size:23px;font-weight:600;margin:0 0 6px}
+.field-test .sub{font-size:14px;color:var(--text-muted);margin-bottom:24px}
+.ft-q{font-family:'Fraunces',serif;font-size:16px;font-weight:500;margin-bottom:14px}
+.ft-opts{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.opt{background:transparent;border:1px solid var(--paper-line);border-radius:var(--radius);padding:10px 18px;font-size:13.5px;color:var(--text);cursor:pointer;transition:all 0.15s}
+.opt:hover{border-color:var(--ink)}
+.opt.is-on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.ft-result{border-top:1px solid var(--paper-line);margin-top:22px;padding-top:22px;display:none}
+.ft-result.is-on{display:block}
+.ft-type{font-family:'Fraunces',serif;font-size:24px;font-weight:600;margin-bottom:8px}
+.ft-desc{font-size:14px;color:var(--text-muted);line-height:1.65;max-width:60ch}
+
+/* ============================================
+   HOME — TOC
+   ============================================ */
+.toc{padding:8px 0 80px}
+.toc-head{margin-bottom:8px}
+.toc-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--paper-line)}
+.toc-item{border-bottom:1px solid var(--paper-line)}
+.toc-item button{width:100%;background:none;border:none;text-align:left;cursor:pointer;padding:24px 4px;display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:22px;color:var(--text)}
+.toc-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--brass-deep)}
+.toc-copy h4{font-family:'Fraunces',serif;font-size:19px;font-weight:600;margin:0 0 4px;transition:color 0.15s}
+.toc-copy p{font-size:13.5px;color:var(--text-muted);margin:0}
+.toc-arrow{font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--paper-line);transition:transform 0.2s,color 0.2s}
+.toc-item button:hover .toc-copy h4{color:var(--brass-deep)}
+.toc-item button:hover .toc-arrow{transform:translateX(4px);color:var(--brass-deep)}
+
+@media (max-width:600px){
+  .toc-item button{grid-template-columns:36px 1fr;gap:14px}
+  .toc-arrow{display:none}
+}
+
+/* ============================================
+   SCIENCE PAGE
+   ============================================ */
+.stage-tabs{display:flex;gap:0;border-bottom:1px solid var(--paper-line);margin-bottom:0;flex-wrap:wrap}
+.stage-tab{background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);padding:14px 20px 14px 0;margin-right:26px;cursor:pointer;border-bottom:2px solid transparent;position:relative;top:1px}
+.stage-tab.is-on{color:var(--text);border-bottom-color:var(--stage-color,var(--brass))}
+.stage-panel{border-left:3px solid var(--stage-color,var(--brass));padding:30px 0 30px 26px;margin-bottom:44px}
+.stage-panel h3{font-size:24px;font-weight:600;margin:0 0 4px}
+.stage-panel .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);display:inline-block;margin-bottom:18px}
+.stage-panel p{font-size:15px;line-height:1.75;color:var(--text);max-width:var(--measure);margin:0 0 12px}
+.stage-panel .note{font-size:13.5px;color:var(--text-muted);border-top:1px solid var(--paper-line);padding-top:14px;margin-top:16px;max-width:var(--measure)}
+
+.hypnogram-block{background:var(--ink);padding:36px 32px 30px;margin-bottom:52px}
+.hypnogram-title{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-text-muted);margin-bottom:22px}
+.hypnogram-legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:20px}
+.leg-item{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-text-muted)}
+.leg-swatch{width:10px;height:10px;flex-shrink:0}
+
+.rem-block{padding:0 0 52px}
+.rem-block h3{font-size:22px;font-weight:600;margin:0 0 6px}
+.rem-block .sub{font-size:14px;color:var(--text-muted);margin-bottom:22px;max-width:var(--measure);line-height:1.6}
+.cycle-ticks{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px}
+.cycle-tick{border:1px solid var(--paper-line);padding:9px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-muted);transition:all 0.2s}
+.cycle-tick.is-rem{border-color:var(--brass);color:var(--brass-deep);font-weight:500}
+.cycle-tick.is-dim{opacity:0.3}
+.rem-note{font-size:13.5px;color:var(--text-muted);margin-top:18px;max-width:var(--measure)}
+
+.callout{border-left:3px solid var(--rust);padding:26px 0 26px 26px;margin-bottom:60px}
+.callout h3{font-size:19px;font-weight:600;margin:0 0 10px}
+.callout p{font-size:14.5px;line-height:1.75;color:var(--text);max-width:var(--measure)}
+.callout p em{font-style:italic;font-family:'Fraunces',serif}
+
+/* ============================================
+   ASSESSMENT PAGE
+   ============================================ */
+.assess-list{padding-top:8px}
+.assess-q{padding:28px 0;border-bottom:1px solid var(--paper-line)}
+.assess-q:first-child{border-top:1px solid var(--paper-line)}
+.q-label{font-family:'Fraunces',serif;font-size:17px;font-weight:500;display:block;margin-bottom:18px;max-width:var(--measure)}
+.assess-cta{margin:36px 0 0}
+
+.score-reveal{display:none;background:var(--ink);color:var(--ink-text);padding:44px 36px;margin-top:56px}
+.score-reveal.is-on{display:block}
+.score-top{display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.score-num{font-family:'IBM Plex Mono',monospace;font-size:56px;color:var(--brass-bright);line-height:1}
+.score-label{font-family:'Fraunces',serif;font-size:21px;font-weight:600}
+.gauge{height:2px;background:var(--ink-line);margin-bottom:20px}
+.gauge-fill{height:100%;background:var(--brass-bright);width:0;transition:width 0.9s cubic-bezier(.16,1,.3,1)}
+.score-desc{font-size:14.5px;color:var(--ink-text-muted);line-height:1.7;max-width:var(--measure);margin-bottom:32px}
+.tips-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-text-muted);margin-bottom:6px;border-top:1px solid var(--ink-line);padding-top:24px}
+.tip-row{display:grid;grid-template-columns:32px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--ink-line-soft)}
+.tip-row:first-of-type{border-top:none}
+.tip-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--brass-bright)}
+.tip-row h4{font-family:'Fraunces',serif;font-size:15.5px;font-weight:600;margin:0 0 4px}
+.tip-row p{font-size:13px;color:var(--ink-text-muted);line-height:1.6;margin:0}
+.score-next{margin-top:32px}
+
+/* ============================================
+   MYTHS PAGE
+   ============================================ */
+.myth-header{display:flex;align-items:center;gap:24px;padding:18px 0 34px;border-bottom:1px solid var(--paper-line);margin-bottom:6px;flex-wrap:wrap}
+.myth-score{font-family:'IBM Plex Mono',monospace;font-size:28px;color:var(--text)}
+.myth-status{font-size:12.5px;color:var(--text-muted);font-family:'IBM Plex Mono',monospace}
+.myth-gauge{flex:1;min-width:120px;height:2px;background:var(--paper-line)}
+.myth-gauge-fill{height:100%;background:var(--brass);width:0;transition:width 0.4s}
+
+.claim{padding:30px 0;border-bottom:1px solid var(--paper-line)}
+.claim-cat{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px}
+.claim-q{font-family:'Fraunces',serif;font-style:italic;font-size:18px;line-height:1.5;margin-bottom:16px;max-width:var(--measure)}
+.claim-btns{display:flex;gap:10px;margin-bottom:4px}
+.tf-btn{background:transparent;border:1px solid var(--paper-line);border-radius:var(--radius);padding:9px 22px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.04em;text-transform:uppercase;color:var(--text);cursor:pointer;transition:all 0.15s}
+.tf-btn:hover{border-color:var(--ink)}
+.tf-btn.correct{background:rgba(56,86,74,0.1);border-color:var(--pine);color:var(--pine)}
+.tf-btn.wrong{background:rgba(156,69,54,0.08);border-color:var(--rust);color:var(--rust)}
+.claim-reveal{display:none;padding-top:16px;margin-top:14px;border-top:1px solid var(--paper-line-soft)}
+.claim-reveal.is-on{display:block}
+.claim-verdict{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
+.claim-verdict.right{color:var(--pine)}
+.claim-verdict.wrong{color:var(--rust)}
+.claim-exp{font-size:14px;color:var(--text-muted);line-height:1.7;max-width:var(--measure)}
+
+/* ============================================
+   HYGIENE PAGE
+   ============================================ */
+.hyg-list{border-top:1px solid var(--paper-line);margin-top:8px}
+.hyg-row{display:grid;grid-template-columns:44px 1fr;gap:22px;padding:26px 0;border-bottom:1px solid var(--paper-line)}
+.hyg-row:nth-child(even){background:rgba(20,24,29,0.025)}
+.hyg-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--brass-deep);padding-top:2px}
+.hyg-row h3{font-family:'Fraunces',serif;font-size:17.5px;font-weight:600;margin:0 0 6px}
+.hyg-row p{font-size:14px;color:var(--text);line-height:1.65;margin:0 0 12px;max-width:var(--measure)}
+.hyg-why{border-left:2px solid var(--pine);padding-left:14px}
+.hyg-why-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--pine);margin-bottom:4px}
+.hyg-why p{font-size:13px;color:var(--text-muted);margin:0;max-width:56ch}
+
+/* ============================================
+   GAME
+   ============================================ */
+#page-game{background:var(--ink);color:var(--ink-text)}
+#page-game .page-title{color:var(--ink-text)}
+#page-game .page-sub{color:var(--ink-text-muted)}
+.game-panel{border:1px solid var(--ink-line);padding:28px;margin-bottom:60px}
+.game-hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.g-score{font-family:'IBM Plex Mono',monospace;font-size:22px;color:var(--ink-text)}
+.g-timer{font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--brass-bright)}
+.g-health{display:flex;gap:7px}
+.life{width:11px;height:11px;background:var(--brass-bright);transition:background 0.2s,opacity 0.2s}
+.life.lost{background:transparent;border:1px solid var(--ink-line);opacity:0.7}
+.game-field{position:relative;height:300px;background:rgba(0,0,0,0.22);overflow:hidden}
 .sleeper{position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%);text-align:center;pointer-events:none;z-index:2}
-.bed-icon{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--white);line-height:1;display:block}
-.sleeper-status{font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px}
-.distractor{position:absolute;font-size:12px;font-weight:600;color:var(--navy);background:var(--gold);padding:6px 12px;border-radius:99px;cursor:pointer;z-index:3;transition:transform 0.1s;user-select:none;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,0.3)}
-.distractor:hover{transform:scale(1.08)}
+.sleeper-label{font-family:'Fraunces',serif;font-style:italic;font-size:19px;color:var(--ink-text)}
+.sleeper-status{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-text-muted);margin-top:6px;letter-spacing:0.03em}
+.distractor{position:absolute;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:var(--ink-text);background:var(--ink-soft);border:1px solid var(--rust);padding:6px 12px;cursor:pointer;z-index:3;transition:transform 0.1s;user-select:none;white-space:nowrap}
+.distractor:hover{transform:scale(1.06)}
 .distractor:active{transform:scale(0.92)}
-.game-msg{text-align:center;padding:2rem;color:var(--white)}
-.game-msg h2{font-size:28px;margin-bottom:8px}
-.game-msg p{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:1.25rem}
-.game-msg .score-final{font-size:48px;color:var(--gold);font-family:'Playfair Display',serif;margin:8px 0}
-.game-instructions{font-size:13px;color:rgba(255,255,255,0.5);text-align:center;margin-top:8px;line-height:1.6}
-.combo-pop{position:fixed;pointer-events:none;font-size:20px;font-weight:700;color:var(--gold);animation:popUp 0.8s forwards;z-index:999}
-@keyframes popUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-50px) scale(1.4)}}
+.game-instructions{font-size:12.5px;color:var(--ink-text-muted);text-align:center;margin-top:14px}
+.game-msg{text-align:center;padding:48px 20px}
+.game-msg h2{font-size:26px;margin-bottom:10px;font-weight:600}
+.game-msg p{font-size:14px;color:var(--ink-text-muted);margin-bottom:26px;max-width:44ch;margin-left:auto;margin-right:auto;line-height:1.6}
+.game-msg .score-final{font-family:'IBM Plex Mono',monospace;font-size:44px;color:var(--brass-bright);margin-bottom:6px}
+.combo-pop{position:fixed;pointer-events:none;font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:600;color:var(--brass-bright);animation:popUp 0.7s forwards;z-index:999}
+@keyframes popUp{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-40px)}}
 
-/* FOOTER */
-footer{background:var(--navy);padding:1.5rem;text-align:center;margin-top:2rem}
-footer p{font-size:12px;color:rgba(255,255,255,0.3)}
-#secret-trigger{cursor:pointer;margin-left:6px}
+/* ============================================
+   FOOTER
+   ============================================ */
+footer{background:var(--ink);padding:28px 0;text-align:center;border-top:1px solid var(--ink-line)}
+footer p{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.03em;color:rgba(237,231,216,0.4);margin:0}
+#secret-trigger{cursor:default}
 
-/* UTIL */
 .hidden{display:none!important}
-.mt1{margin-top:1rem}
-.mt2{margin-top:1.5rem}
-.pulse{animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
-
-/* TOOLTIP */
-.tooltip-wrap{position:relative;display:inline-block}
-.tooltip{position:absolute;bottom:calc(100%+6px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--white);font-size:12px;padding:6px 10px;border-radius:var(--radius);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity 0.2s;z-index:50}
-.tooltip-wrap:hover .tooltip{opacity:1}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <div class="brand" id="brand-logo">Sleep Better</div>
-    <button class="ntab on" onclick="goPage('home')"><span class="dot"></span>Home</button>
-    <button class="ntab" onclick="goPage('science')"><span class="dot"></span>Sleep science</button>
-    <button class="ntab" onclick="goPage('assess')"><span class="dot"></span>Self-assessment</button>
-    <button class="ntab" onclick="goPage('myths')"><span class="dot"></span>Myth busters</button>
-    <button class="ntab" onclick="goPage('hygiene')"><span class="dot"></span>Hygiene guide</button>
-
+<header class="site-nav">
+  <div class="wrap nav-row">
+    <button class="brand-mark" id="brand-logo" aria-label="Sleep Better home">
+      <span class="brand-dot"></span>
+      <span class="brand-name">Sleep Better</span>
+    </button>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><button data-page="home" aria-current="page">Home</button></li>
+        <li><button data-page="science">Sleep science</button></li>
+        <li><button data-page="assess">Self-assessment</button></li>
+        <li><button data-page="myths">Myth busters</button></li>
+        <li><button data-page="hygiene">Hygiene guide</button></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
   </div>
-</nav>
-
-<!-- HOME -->
-<div class="page on" id="page-home">
-  <div class="hero">
-    <h1>Sleep Better,<br><em>Learn Better.</em></h1>
-    <p>A sleep literacy toolkit for CGS students. Find out what sleep does to your brain, where your habits stand, and what actually helps.</p>
-    <div class="hero-credits">CGS Community Project 2026</div>
+  <div class="nav-mobile" id="nav-mobile">
+    <button data-page="home" aria-current="page">Home</button>
+    <button data-page="science">Sleep science</button>
+    <button data-page="assess">Self-assessment</button>
+    <button data-page="myths">Myth busters</button>
+    <button data-page="hygiene">Hygiene guide</button>
   </div>
+</header>
 
-  <div class="stat-strip">
-    <div class="stat-item">
-      <div class="stat-num">1 in 3</div>
-      <div class="stat-label">Australian children have trouble sleeping</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">8&ndash;10</div>
-      <div class="stat-label">hours of sleep recommended for teens aged 13&ndash;18</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">40%</div>
-      <div class="stat-label">of teens report feeling tired most school days</div>
-    </div>
-  </div>
+<main>
 
-  <div class="grid2" style="margin-bottom:1.25rem">
-    <div class="feel-box">
-      <h3>How would you feel with...</h3>
-      <div class="sub">Drag the slider to see the effects of different amounts of sleep.</div>
-      <div class="hrs-row">
-        <input type="range" min="4" max="10" step="0.5" value="8" id="feel-slider">
-        <div class="hrs-val" id="feel-hrs">8 hrs</div>
+<!-- ============ HOME ============ -->
+<div class="page is-on" id="page-home">
+
+  <section class="hero grain-dark">
+    <div class="wrap">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow on-ink">CGS Community Project — 2026</div>
+          <h1>Sleep better,<br><em>learn better.</em></h1>
+          <p class="hero-lede">A sleep-literacy toolkit for CGS students — what sleep actually does to a teenage brain, where your own habits stand, and what changes are worth making.</p>
+        </div>
+        <div class="dial" id="hero-dial"></div>
       </div>
-      <div class="feel-display" id="feel-display">
-        <div class="feel-label" id="feel-label">Well-rested</div>
-        <div class="feel-desc" id="feel-desc">Within the recommended range. Memory consolidation and executive function are working properly.</div>
-        <div class="feel-sub hidden" id="feel-sub"></div>
-      </div>
-    </div>
 
-    <div class="fact-box">
-      <div class="fact-num" id="fact-num">Fact 1 of 8</div>
-      <div class="fact-text" id="fact-text"></div>
-      <div class="fact-dots" id="fact-dots"></div>
-    </div>
-  </div>
-
-  <div class="owl-quiz" style="margin-bottom:1.25rem">
-    <h3>Are you a night owl or an early bird?</h3>
-    <div class="sub">Answer three quick questions to find out your natural sleep type.</div>
-    <div id="owl-step-0">
-      <p style="font-size:14px;font-weight:500;color:var(--navy);margin-bottom:8px">On a weekend with nothing on, what time do you naturally wake up?</p>
-      <div class="owl-options">
-        <button class="owl-btn" onclick="owlAnswer(0,0)">Before 7am</button>
-        <button class="owl-btn" onclick="owlAnswer(0,1)">7am&ndash;9am</button>
-        <button class="owl-btn" onclick="owlAnswer(0,2)">After 9am</button>
-      </div>
-    </div>
-    <div id="owl-step-1" class="hidden">
-      <p style="font-size:14px;font-weight:500;color:var(--navy);margin-bottom:8px">When do you feel most mentally sharp?</p>
-      <div class="owl-options">
-        <button class="owl-btn" onclick="owlAnswer(1,0)">Morning</button>
-        <button class="owl-btn" onclick="owlAnswer(1,1)">Afternoon</button>
-        <button class="owl-btn" onclick="owlAnswer(1,2)">Late evening</button>
-      </div>
-    </div>
-    <div id="owl-step-2" class="hidden">
-      <p style="font-size:14px;font-weight:500;color:var(--navy);margin-bottom:8px">How do you feel in the first 30 minutes after waking?</p>
-      <div class="owl-options">
-        <button class="owl-btn" onclick="owlAnswer(2,0)">Alert and ready</button>
-        <button class="owl-btn" onclick="owlAnswer(2,1)">Takes a while</button>
-        <button class="owl-btn" onclick="owlAnswer(2,2)">Completely zombied</button>
-      </div>
-    </div>
-    <div class="owl-result" id="owl-result">
-      <div class="owl-type" id="owl-type"></div>
-      <div class="owl-desc" id="owl-desc"></div>
-    </div>
-  </div>
-
-  <div class="home-nav-grid">
-    <div class="hnav" onclick="goPage('science')">
-      <h3>Sleep science</h3>
-      <p>How your brain cycles through the night</p>
-    </div>
-    <div class="hnav" onclick="goPage('assess')">
-      <h3>Self-assessment</h3>
-      <p>Get your personal sleep score</p>
-    </div>
-    <div class="hnav" onclick="goPage('myths')">
-      <h3>Myth busters</h3>
-      <p>16 sleep myths: true or false?</p>
-    </div>
-    <div class="hnav" onclick="goPage('hygiene')">
-      <h3>Hygiene guide</h3>
-      <p>The habits with real evidence</p>
-    </div>
-  </div>
-</div>
-
-<!-- SCIENCE -->
-<div class="page" id="page-science">
-  <div class="page-title">How sleep works</div>
-  <p class="page-sub">Your brain cycles through four distinct stages roughly every 90 minutes. Each one does something different. Click each stage to explore it.</p>
-
-  <div class="stage-nav" id="stage-nav"></div>
-  <div class="stage-card" id="stage-card"></div>
-
-  <div class="divider"></div>
-
-  <div class="cycle-wrap">
-    <div class="cycle-title">A typical 8-hour night (5 cycles, 90 minutes each)</div>
-    <div class="cycle-row" id="cycle-row"></div>
-    <div class="cycle-legend">
-      <div class="cleg"><div class="cleg-dot" style="background:#B5D4F4"></div>Stage 1 (light)</div>
-      <div class="cleg"><div class="cleg-dot" style="background:#A9A6E0"></div>Stage 2 (light)</div>
-      <div class="cleg"><div class="cleg-dot" style="background:#534AB7"></div>Stage 3 (deep)</div>
-      <div class="cleg"><div class="cleg-dot" style="background:#F6C97A"></div>REM</div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="hrs-science">
-    <h3>If I sleep for... how many REM cycles do I get?</h3>
-    <p style="font-size:13px;color:var(--muted);margin-top:4px;margin-bottom:1rem">REM sleep — where memory and learning consolidation happens — increases with each cycle. Use the slider to see what you're getting.</p>
-    <div class="hrs-row">
-      <input type="range" min="4" max="10" step="0.5" value="8" id="rem-slider" oninput="updateRemCycles(this.value)">
-      <div class="hrs-val" id="rem-hrs">8 hrs</div>
-    </div>
-    <div class="cycles-display" id="rem-display"></div>
-    <p style="font-size:12.5px;color:var(--muted);margin-top:10px" id="rem-note"></p>
-  </div>
-
-  <div class="divider"></div>
-  <div class="card">
-    <h3>Why cutting sleep short is worse than it seems</h3>
-    <p>When you cut a night short by 1–2 hours, you mostly lose sleep from the <strong>end</strong> of the night — which contains the most REM. A 6-hour night doesn't give you 75% of an 8-hour night's benefit. It may give you less than 50% of the REM sleep, which is the stage most directly tied to academic performance, emotional regulation, and memory.</p>
-  </div>
-</div>
-
-<!-- ASSESSMENT -->
-<div class="page" id="page-assess">
-  <div class="page-title">How are you sleeping?</div>
-  <p class="page-sub">Answer five questions to get your personalised sleep score and a set of tips built around your specific answers.</p>
-  <div id="assess-container"></div>
-  <button class="cta" onclick="calcScore()" style="margin-top:0.5rem">Get my sleep score →</button>
-  <div class="score-reveal" id="score-reveal">
-    <div class="score-big" id="score-num">0</div>
-    <div class="score-label" id="score-label"></div>
-    <div class="score-bar-t"><div class="score-bar-f" id="score-bar" style="width:0%"></div></div>
-    <div class="score-desc" id="score-desc"></div>
-    <div class="tips-inline" id="tips-inline"></div>
-    <button class="cta purple" onclick="goPage('myths')" style="margin-top:1rem">Next: try the myth busters →</button>
-  </div>
-</div>
-
-<!-- MYTHS -->
-<div class="page" id="page-myths">
-  <div class="page-title">Sleep myth busters</div>
-  <p class="page-sub">16 statements about sleep — pick true or false and see how many you get right.</p>
-  <div class="myth-score-bar">
-    <div>
-      <div class="mscore-big" id="mscore">0 / 16</div>
-      <div class="mscore-sub" id="mscore-sub">Get started — answer your first question</div>
-    </div>
-    <div class="myth-progress"><div class="myth-prog-fill" id="mprog" style="width:0%"></div></div>
-  </div>
-  <div id="myth-list"></div>
-</div>
-
-<!-- HYGIENE -->
-<div class="page" id="page-hygiene">
-  <div class="page-title">Sleep hygiene guide</div>
-  <p class="page-sub">Sleep hygiene refers to the habits that consistently improve how quickly you fall asleep and how well you stay asleep. These are the ones with the strongest scientific evidence.</p>
-  <div class="hyg-grid" id="hyg-grid"></div>
-</div>
-
-<!-- GAME (hidden) -->
-<div class="page" id="page-game" style="background:var(--navy);min-height:100vh">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.5rem">
-    <div class="page-title" style="color:var(--white);margin-bottom:0">Sleep Defender</div>
-    <span class="badge badge-navy" style="font-size:11px">hidden minigame</span>
-  </div>
-  <p class="page-sub">Tap the distractions before they reach the sleeper. Keep your sleep quality high for 30 seconds.</p>
-  <div class="game-area" id="game-area">
-    <div id="game-screen-start" class="game-msg">
-      <h2 style="color:var(--white);margin-bottom:8px">Sleep Defender</h2>
-      <p>Tap phones, coffee, lights, and noise before they reach the sleeper. Each one that gets through costs you a heart. You have 30 seconds.</p>
-      <button class="cta purple" onclick="startGame()">Start game</button>
-    </div>
-    <div id="game-screen-play" class="hidden">
-      <div class="game-hud">
-        <div class="g-score" id="g-score">Score: 0</div>
-        <div class="g-timer" id="g-timer">30</div>
-        <div class="g-health" id="g-health"></div>
-      </div>
-      <div class="game-field" id="game-field">
-        <div class="sleeper" id="sleeper">
-          <span class="bed-icon">Sleeper</span>
-          <div class="sleeper-status" id="sleeper-status">Sleeping well</div>
+      <div class="stat-row">
+        <div class="stat-cell">
+          <div class="stat-num mono">1 in 3</div>
+          <div class="stat-label">Australian children have trouble sleeping</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num mono">8&ndash;10</div>
+          <div class="stat-label">hours recommended for teens aged 13&ndash;18</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num mono">40%</div>
+          <div class="stat-label">of teens report feeling tired most school days</div>
         </div>
       </div>
-      <div class="game-instructions">Tap the distractions to stop them reaching the sleeper!</div>
     </div>
-    <div id="game-screen-end" class="hidden game-msg">
-      <div class="score-final" id="g-final-score">0</div>
-      <h2 style="color:var(--white)">Game over</h2>
-      <p id="g-end-msg"></p>
-      <button class="cta purple" onclick="startGame()" style="margin-right:8px">Play again</button>
-      <button class="cta outline" onclick="goPage('home')" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7)">Back to toolkit</button>
+  </section>
+
+  <section class="panels wrap">
+    <div class="panel">
+      <div class="instrument">
+        <h3>How would you feel with&hellip;</h3>
+        <div class="sub">Drag the slider to see the effect of different amounts of sleep.</div>
+        <div class="slider-row">
+          <input type="range" min="4" max="10" step="0.5" value="8" id="feel-slider" aria-label="Hours of sleep">
+          <div class="readout mono" id="feel-hrs">8 hrs</div>
+        </div>
+        <div class="instrument-face" id="feel-display">
+          <div class="feel-label" id="feel-label">Well-rested</div>
+          <div class="feel-desc" id="feel-desc">Within the recommended range. Memory consolidation and executive function are working properly.</div>
+          <div class="feel-sub hidden" id="feel-sub"></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="quote-panel">
+        <div class="quote-num mono" id="fact-num">Fact 01 / 08</div>
+        <div class="quote-text" id="fact-text"></div>
+        <div class="quote-marks" id="fact-dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="field-test wrap">
+    <div class="field-test-inner">
+      <div class="eyebrow">Quick quiz</div>
+      <h3>Are you a night owl or an early bird?</h3>
+      <div class="sub">Answer three quick questions to find your natural sleep type.</div>
+
+      <div id="owl-step-0">
+        <p class="ft-q">On a weekend with nothing on, what time do you naturally wake up?</p>
+        <div class="ft-opts">
+          <button class="opt" onclick="owlAnswer(0,0)">Before 7am</button>
+          <button class="opt" onclick="owlAnswer(0,1)">7am&ndash;9am</button>
+          <button class="opt" onclick="owlAnswer(0,2)">After 9am</button>
+        </div>
+      </div>
+      <div id="owl-step-1" class="hidden">
+        <p class="ft-q">When do you feel most mentally sharp?</p>
+        <div class="ft-opts">
+          <button class="opt" onclick="owlAnswer(1,0)">Morning</button>
+          <button class="opt" onclick="owlAnswer(1,1)">Afternoon</button>
+          <button class="opt" onclick="owlAnswer(1,2)">Late evening</button>
+        </div>
+      </div>
+      <div id="owl-step-2" class="hidden">
+        <p class="ft-q">How do you feel in the first 30 minutes after waking?</p>
+        <div class="ft-opts">
+          <button class="opt" onclick="owlAnswer(2,0)">Alert and ready</button>
+          <button class="opt" onclick="owlAnswer(2,1)">Takes a while</button>
+          <button class="opt" onclick="owlAnswer(2,2)">Completely zombied</button>
+        </div>
+      </div>
+      <div class="ft-result" id="owl-result">
+        <div class="ft-type" id="owl-type"></div>
+        <div class="ft-desc" id="owl-desc"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="toc wrap">
+    <div class="toc-head">
+      <div class="eyebrow">In this toolkit</div>
+    </div>
+    <ul class="toc-list">
+      <li class="toc-item">
+        <button data-page="science">
+          <span class="toc-num mono">01</span>
+          <span class="toc-copy"><h4>Sleep science</h4><p>How your brain cycles through the night</p></span>
+          <span class="toc-arrow">&rarr;</span>
+        </button>
+      </li>
+      <li class="toc-item">
+        <button data-page="assess">
+          <span class="toc-num mono">02</span>
+          <span class="toc-copy"><h4>Self-assessment</h4><p>Get your personal sleep score</p></span>
+          <span class="toc-arrow">&rarr;</span>
+        </button>
+      </li>
+      <li class="toc-item">
+        <button data-page="myths">
+          <span class="toc-num mono">03</span>
+          <span class="toc-copy"><h4>Myth busters</h4><p>Sixteen sleep myths — true or false</p></span>
+          <span class="toc-arrow">&rarr;</span>
+        </button>
+      </li>
+      <li class="toc-item">
+        <button data-page="hygiene">
+          <span class="toc-num mono">04</span>
+          <span class="toc-copy"><h4>Hygiene guide</h4><p>The habits with real evidence</p></span>
+          <span class="toc-arrow">&rarr;</span>
+        </button>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<!-- ============ SCIENCE ============ -->
+<div class="page" id="page-science">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="eyebrow">Chapter 01</div>
+      <h2 class="page-title">How sleep works</h2>
+      <p class="page-sub">Your brain cycles through four distinct stages roughly every ninety minutes. Each one does something different — select a stage to explore it.</p>
+    </div>
+
+    <div class="stage-tabs" id="stage-nav"></div>
+    <div class="stage-panel" id="stage-card"></div>
+
+    <div class="hypnogram-block">
+      <div class="hypnogram-title mono">A typical eight-hour night &mdash; five cycles</div>
+      <div id="hypnogram"></div>
+      <div class="hypnogram-legend" id="hyp-legend"></div>
+    </div>
+
+    <div class="rem-block">
+      <h3>If I sleep for&hellip; how many REM cycles do I get?</h3>
+      <p class="sub">REM sleep &mdash; where memory and learning consolidation happens &mdash; increases with each cycle. Use the slider to see what you're getting.</p>
+      <div class="slider-row" style="max-width:420px">
+        <input type="range" min="4" max="10" step="0.5" value="8" id="rem-slider" oninput="updateRemCycles(this.value)" aria-label="Hours of sleep for REM calculation">
+        <div class="readout mono" id="rem-hrs">8 hrs</div>
+      </div>
+      <div class="cycle-ticks" id="rem-display"></div>
+      <p class="rem-note" id="rem-note"></p>
+    </div>
+
+    <div class="callout">
+      <h3>Why cutting sleep short is worse than it seems</h3>
+      <p>When you cut a night short by one or two hours, you mostly lose sleep from the <em>end</em> of the night &mdash; which contains the most REM. A six-hour night doesn't give you 75% of an eight-hour night's benefit. It may give you less than half the REM sleep, the stage most directly tied to academic performance, emotional regulation, and memory.</p>
     </div>
   </div>
 </div>
 
+<!-- ============ ASSESSMENT ============ -->
+<div class="page" id="page-assess">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="eyebrow">Chapter 02</div>
+      <h2 class="page-title">How are you sleeping?</h2>
+      <p class="page-sub">Answer five questions to get your personalised sleep score and a set of tips built around your specific answers.</p>
+    </div>
+
+    <div class="assess-list" id="assess-container"></div>
+    <button class="btn assess-cta" onclick="calcScore()">Get my sleep score &rarr;</button>
+
+    <div class="score-reveal" id="score-reveal">
+      <div class="score-top">
+        <div class="score-num" id="score-num">0</div>
+        <div class="score-label" id="score-label"></div>
+      </div>
+      <div class="gauge"><div class="gauge-fill" id="score-bar"></div></div>
+      <p class="score-desc" id="score-desc"></p>
+      <div class="tips-eyebrow mono">Your personalised tips</div>
+      <div id="tips-inline"></div>
+      <button class="btn btn--on-ink score-next" onclick="goPage('myths')">Next: try the myth busters &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MYTHS ============ -->
+<div class="page" id="page-myths">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="eyebrow">Chapter 03</div>
+      <h2 class="page-title">Sleep myth busters</h2>
+      <p class="page-sub">Sixteen statements about sleep &mdash; pick true or false and see how many you get right.</p>
+    </div>
+
+    <div class="myth-header">
+      <div class="myth-score mono" id="mscore">0 / 16</div>
+      <div class="myth-gauge"><div class="myth-gauge-fill" id="mprog"></div></div>
+      <div class="myth-status" id="mscore-sub">Get started &mdash; answer your first question</div>
+    </div>
+    <div id="myth-list"></div>
+  </div>
+</div>
+
+<!-- ============ HYGIENE ============ -->
+<div class="page" id="page-hygiene">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="eyebrow">Chapter 04</div>
+      <h2 class="page-title">Sleep hygiene guide</h2>
+      <p class="page-sub">Sleep hygiene refers to the habits that consistently improve how quickly you fall asleep and how well you stay asleep. These are the ones with the strongest evidence behind them.</p>
+    </div>
+    <div class="hyg-list" id="hyg-grid"></div>
+  </div>
+</div>
+
+<!-- ============ GAME (hidden) ============ -->
+<div class="page" id="page-game" style="min-height:100vh">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="eyebrow on-ink">Hidden minigame</div>
+      <h2 class="page-title">Sleep Defender</h2>
+      <p class="page-sub">Tap the distractions before they reach the sleeper. Keep sleep quality high for thirty seconds.</p>
+    </div>
+    <div class="game-panel">
+      <div id="game-screen-start" class="game-msg">
+        <h2>Sleep Defender</h2>
+        <p>Tap phones, coffee, lights, and noise before they reach the sleeper. Each one that gets through costs a life. You have 30 seconds.</p>
+        <button class="btn btn--on-ink" onclick="startGame()">Start game</button>
+      </div>
+      <div id="game-screen-play" class="hidden">
+        <div class="game-hud">
+          <div class="g-score mono" id="g-score">Score: 0</div>
+          <div class="g-timer mono" id="g-timer">30</div>
+          <div class="g-health" id="g-health"></div>
+        </div>
+        <div class="game-field" id="game-field">
+          <div class="sleeper" id="sleeper">
+            <span class="sleeper-label">Sleeper</span>
+            <div class="sleeper-status mono" id="sleeper-status">Sleeping well</div>
+          </div>
+        </div>
+        <div class="game-instructions">Tap the distractions to stop them reaching the sleeper.</div>
+      </div>
+      <div id="game-screen-end" class="hidden game-msg">
+        <div class="score-final" id="g-final-score">0</div>
+        <h2>Game over</h2>
+        <p id="g-end-msg"></p>
+        <button class="btn btn--on-ink" onclick="startGame()" style="margin-right:8px">Play again</button>
+        <button class="btn btn--on-ink btn--ghost" onclick="goPage('home')">Back to toolkit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
 <footer>
-  <p>Sleep Better, Learn Better &mdash; CGS Year 9 Community Project 2026 <span id="secret-trigger" title="..." style="display:inline-block;width:14px;height:14px"></span></p>
+  <p>Sleep Better, Learn Better &mdash; CGS Year 9 Community Project 2026 <span id="secret-trigger" title="&#8203;" style="display:inline-block;width:14px;height:14px"></span></p>
 </footer>
 
 <script>
+/* ============================================
+   NAVIGATION
+   ============================================ */
 const PAGES=['home','science','assess','myths','hygiene','game'];
 
 function goPage(id){
   PAGES.forEach(p=>{
-    document.getElementById('page-'+p).classList.toggle('on',p===id);
+    document.getElementById('page-'+p).classList.toggle('is-on',p===id);
   });
-  document.querySelectorAll('.ntab').forEach((t,i)=>{
-    t.classList.toggle('on',t.getAttribute('onclick')==="goPage('"+id+"')");
+  document.querySelectorAll('[data-page]').forEach(btn=>{
+    if(btn.getAttribute('data-page')===id)btn.setAttribute('aria-current','page');
+    else btn.removeAttribute('aria-current');
   });
+  document.getElementById('nav-mobile').classList.remove('is-open');
+  document.getElementById('nav-toggle').setAttribute('aria-expanded','false');
   window.scrollTo(0,0);
   if(id==='assess')buildAssess();
 }
+document.querySelectorAll('[data-page]').forEach(btn=>{
+  btn.addEventListener('click',()=>goPage(btn.getAttribute('data-page')));
+});
 
-// SECRET TRIGGER
+const navToggle=document.getElementById('nav-toggle');
+const navMobile=document.getElementById('nav-mobile');
+navToggle.addEventListener('click',()=>{
+  const open=navMobile.classList.toggle('is-open');
+  navToggle.setAttribute('aria-expanded',open?'true':'false');
+});
+
+/* SECRET TRIGGER */
 let secretClicks=0;
-document.getElementById('secret-trigger').onclick=()=>{
-  secretClicks++;
-  if(secretClicks>=5){
-    secretClicks=0;
-    goPage('game');
-    showGameStart();
-  }
-};
-document.getElementById('brand-logo').onclick=()=>{
+function tryTrigger(){
   secretClicks++;
   if(secretClicks>=5){secretClicks=0;goPage('game');showGameStart();}
-};
+}
+document.getElementById('secret-trigger').onclick=tryTrigger;
+document.getElementById('brand-logo').addEventListener('click',()=>{tryTrigger();goPage('home');});
 
-// FEEL SLIDER
+/* ============================================
+   HERO NIGHT DIAL (signature graphic)
+   ============================================ */
+(function(){
+  const el=document.getElementById('hero-dial');
+  const hours=['9p','10p','11p','12a','1a','2a','3a','4a','5a','6a','7a'];
+  const n=hours.length,W=420,H=100,pad=18;
+  const step=(W-pad*2)/(n-1);
+  let ticks='';
+  hours.forEach((h,i)=>{
+    const x=pad+i*step;
+    ticks+=`<line x1="${x}" y1="40" x2="${x}" y2="${i%2===0?50:46}" stroke="rgba(241,236,223,0.35)" stroke-width="1"/>`;
+    if(i%2===0)ticks+=`<text x="${x}" y="70" font-family="IBM Plex Mono" font-size="10" fill="rgba(241,236,223,0.45)" text-anchor="middle">${h}</text>`;
+  });
+  const bandStart=pad+1*step,bandEnd=pad+9*step;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Diagram of a recommended sleep window from 10pm to 7am">
+    <line x1="${pad}" y1="40" x2="${W-pad}" y2="40" stroke="rgba(241,236,223,0.2)" stroke-width="1"/>
+    <line x1="${bandStart}" y1="40" x2="${bandEnd}" y2="40" stroke="#C99A48" stroke-width="2"/>
+    <circle cx="${bandStart}" cy="40" r="3" fill="#C99A48"/>
+    <circle cx="${bandEnd}" cy="40" r="3" fill="#C99A48"/>
+    ${ticks}
+  </svg>`;
+  const cap=document.createElement('div');
+  cap.className='dial-caption mono';
+  cap.textContent='8–10 hr recommended window';
+  el.appendChild(cap);
+})();
+
+/* ============================================
+   FEEL SLIDER
+   ============================================ */
 const FEEL=[
   {hrs:4,label:'Severely impaired',desc:'Reaction time equivalent to being legally drunk. Memory, focus, and emotional control are all critically affected.',sub:'This is associated with increased risk of accidents and mental health issues.'},
   {hrs:5,label:'Significantly impaired',desc:'Mood, memory and cognitive speed are all substantially reduced. The cumulative sleep debt will build up across the week.',sub:'Most teens functioning on this amount think they feel fine — but tests show they are not.'},
@@ -507,11 +747,13 @@ feelSlider.oninput=()=>{
   const sub=document.getElementById('feel-sub');
   if(f.sub){sub.textContent=f.sub;sub.classList.remove('hidden');}
   else sub.classList.add('hidden');
-  document.getElementById('feel-display').style.borderLeft=v<7?'3px solid #E05C5C':v<8?'3px solid #F6C97A':'3px solid #4CAF7D';
+  document.getElementById('feel-display').style.borderTopColor=v<7?'#9C4536':v<8?'#A97D33':'#38564A';
 };
 feelSlider.oninput();
 
-// FACTS
+/* ============================================
+   FACTS
+   ============================================ */
 const FACTS=[
   'During REM sleep, the hippocampus replays the day\'s events and transfers them to long-term memory — essentially "saving" what you learned.',
   'Teenagers have a biological shift in their circadian rhythm that makes it hard to fall asleep before 11pm. This is a real physiological change, not laziness.',
@@ -519,88 +761,146 @@ const FACTS=[
   'Sleep clears waste products from the brain including amyloid beta — a protein linked to Alzheimer\'s disease. This "cleaning" only happens during sleep.',
   'Students who sleep 8+ hours before an exam perform, on average, 40% better than those who pull all-nighters.',
   'Blue light from phones suppresses melatonin production for up to 90 minutes after you stop looking at the screen.',
-  'Deep sleep (Stage 3) releases 70-80% of daily human growth hormone. This is why children and teenagers need more sleep than adults.',
+  'Deep sleep (Stage 3) releases 70–80% of daily human growth hormone. This is why children and teenagers need more sleep than adults.',
   'Your body can\'t store sleep like a battery — so the only way to get the cognitive benefits is to actually sleep the hours.',
 ];
 let factIdx=0;
 function showFact(i){
   factIdx=i;
-  document.getElementById('fact-text').style.opacity='0';
+  const t=document.getElementById('fact-text');
+  t.style.opacity='0';
   setTimeout(()=>{
-    document.getElementById('fact-text').textContent=FACTS[i];
-    document.getElementById('fact-num').textContent='Fact '+(i+1)+' of '+FACTS.length;
-    document.getElementById('fact-text').style.opacity='1';
-    document.querySelectorAll('.fact-dot').forEach((d,j)=>d.classList.toggle('on',j===i));
-  },200);
+    t.textContent=FACTS[i];
+    document.getElementById('fact-num').textContent='Fact '+String(i+1).padStart(2,'0')+' / '+FACTS.length;
+    t.style.opacity='1';
+    document.querySelectorAll('.quote-mark').forEach((d,j)=>d.classList.toggle('is-on',j===i));
+  },180);
 }
 const dotsEl=document.getElementById('fact-dots');
 FACTS.forEach((_,i)=>{
-  const d=document.createElement('div');
-  d.className='fact-dot'+(i===0?' on':'');
+  const d=document.createElement('button');
+  d.className='quote-mark'+(i===0?' is-on':'');
+  d.setAttribute('aria-label','Show fact '+(i+1));
   d.onclick=()=>showFact(i);
   dotsEl.appendChild(d);
 });
 showFact(0);
 setInterval(()=>showFact((factIdx+1)%FACTS.length),4500);
 
-// OWL QUIZ
+/* ============================================
+   OWL QUIZ
+   ============================================ */
 let owlAnswers=[];
 function owlAnswer(step,val){
+  const stepEl=document.getElementById('owl-step-'+step);
+  stepEl.querySelectorAll('.opt').forEach((b,i)=>b.classList.toggle('is-on',i===val));
   owlAnswers[step]=val;
-  document.getElementById('owl-step-'+step).classList.add('hidden');
-  if(step<2){
-    document.getElementById('owl-step-'+(step+1)).classList.remove('hidden');
-  } else {
-    const sum=owlAnswers.reduce((a,b)=>a+b,0);
-    const res=document.getElementById('owl-result');
-    res.classList.add('on');
-    let type,desc;
-    if(sum<=2){type='Early bird';desc='You\'re naturally aligned with morning light. Your body clock is set earlier than average — which actually puts you in a good position for school schedules. Your peak cognitive window is in the morning, so use it for your hardest subjects.';}
-    else if(sum<=4){type='Intermediate';desc='You sit between the extremes — you can adapt reasonably well to both early and late schedules. Most people are in this category. Consistency in your sleep and wake times matters most for you.';}
-    else{type='Night owl';desc='Your circadian rhythm is shifted later than average, which is common in teenagers. You feel most alert in the evening — but school starts early, so building a consistent wind-down routine is especially important for you.';}
-    document.getElementById('owl-type').textContent=type;
-    document.getElementById('owl-desc').textContent=desc;
-  }
+  setTimeout(()=>{
+    stepEl.classList.add('hidden');
+    if(step<2){
+      document.getElementById('owl-step-'+(step+1)).classList.remove('hidden');
+    } else {
+      const sum=owlAnswers.reduce((a,b)=>a+b,0);
+      const res=document.getElementById('owl-result');
+      res.classList.add('is-on');
+      let type,desc;
+      if(sum<=2){type='Early bird';desc='You\'re naturally aligned with morning light. Your body clock is set earlier than average — which actually puts you in a good position for school schedules. Your peak cognitive window is in the morning, so use it for your hardest subjects.';}
+      else if(sum<=4){type='Intermediate';desc='You sit between the extremes — you can adapt reasonably well to both early and late schedules. Most people are in this category. Consistency in your sleep and wake times matters most for you.';}
+      else{type='Night owl';desc='Your circadian rhythm is shifted later than average, which is common in teenagers. You feel most alert in the evening — but school starts early, so building a consistent wind-down routine is especially important for you.';}
+      document.getElementById('owl-type').textContent=type;
+      document.getElementById('owl-desc').textContent=desc;
+    }
+  },220);
 }
 
-// SCIENCE PAGE
+/* ============================================
+   SCIENCE PAGE — STAGE EXPLORER
+   ============================================ */
 const STAGES=[
-  {label:'Stage 1',full:'Stage 1 — light sleep',badge:'5–10 minutes',col:'#B5D4F4',tc:'#0C447C',desc:'The transition from wakefulness to sleep. Your muscles relax, breathing slows, and your heart rate drops. This stage is brief and you can be easily woken from it. It acts as a gateway into deeper sleep.',note:'Accounts for roughly 5% of total sleep time. You return briefly to Stage 1 between each full cycle.'},
-  {label:'Stage 2',full:'Stage 2 — light sleep',badge:'~20 minutes',col:'#A9A6E0',tc:'#26215C',desc:'Your brain begins producing sleep spindles — short bursts of brain activity that play a key role in consolidating memories and blocking external stimuli so you stay asleep. Body temperature drops and awareness of surroundings fades.',note:'The most common stage — you spend about 50% of total sleep time here. Each cycle returns to Stage 2 between other stages.'},
-  {label:'Stage 3',full:'Stage 3 — deep sleep',badge:'20–40 minutes',col:'#534AB7',tc:'#EEEDFE',desc:'The most physically restorative stage of sleep. Your body repairs and rebuilds muscle tissue, strengthens the immune system, and releases growth hormone. It\'s the hardest stage to wake from — you\'ll feel groggy if woken here.',note:'Deep sleep is most abundant in the first half of the night. Cutting sleep short doesn\'t harm this stage as much as it harms REM, which is why you still feel physically ok after a short night.'},
-  {label:'REM',full:'REM sleep',badge:'10–60 minutes',col:'#F6C97A',tc:'#3D2600',desc:'Rapid Eye Movement sleep. Your brain is nearly as active as when you\'re awake. This is when today\'s learning is consolidated into long-term memory, emotions are processed, and creative connections are made between ideas.',note:'REM periods get longer with each cycle — the final cycles of a full night contain the most REM. Cutting sleep short removes these cycles entirely, directly harming learning, memory, and emotional regulation.'},
+  {label:'Stage 1',full:'Stage 1 — light sleep',tag:'5–10 minutes',col:'#93A9B8',desc:'The transition from wakefulness to sleep. Your muscles relax, breathing slows, and your heart rate drops. This stage is brief and you can be easily woken from it. It acts as a gateway into deeper sleep.',note:'Accounts for roughly 5% of total sleep time. You return briefly to Stage 1 between each full cycle.'},
+  {label:'Stage 2',full:'Stage 2 — light sleep',tag:'~20 minutes',col:'#6E7E93',desc:'Your brain begins producing sleep spindles — short bursts of brain activity that play a key role in consolidating memories and blocking external stimuli so you stay asleep. Body temperature drops and awareness of surroundings fades.',note:'The most common stage — you spend about 50% of total sleep time here. Each cycle returns to Stage 2 between other stages.'},
+  {label:'Stage 3',full:'Stage 3 — deep sleep',tag:'20–40 minutes',col:'#38564A',desc:'The most physically restorative stage of sleep. Your body repairs and rebuilds muscle tissue, strengthens the immune system, and releases growth hormone. It\'s the hardest stage to wake from — you\'ll feel groggy if woken here.',note:'Deep sleep is most abundant in the first half of the night. Cutting sleep short doesn\'t harm this stage as much as it harms REM, which is why you still feel physically ok after a short night.'},
+  {label:'REM',full:'REM sleep',tag:'10–60 minutes',col:'#A97D33',desc:'Rapid Eye Movement sleep. Your brain is nearly as active as when you\'re awake. This is when today\'s learning is consolidated into long-term memory, emotions are processed, and creative connections are made between ideas.',note:'REM periods get longer with each cycle — the final cycles of a full night contain the most REM. Cutting sleep short removes these cycles entirely, directly harming learning, memory, and emotional regulation.'},
 ];
 const stageNav=document.getElementById('stage-nav');
 const stageCard=document.getElementById('stage-card');
 function showStage(i){
   const s=STAGES[i];
-  stageCard.innerHTML=`<h3 style="color:var(--navy);margin-bottom:6px">${s.full}</h3><span class="badge badge-purple">${s.badge}</span><p style="margin-top:12px">${s.desc}</p><p class="note" style="margin-top:8px">${s.note}</p>`;
-  stageCard.style.borderLeftColor=s.col;
-  stageNav.querySelectorAll('.stage-btn').forEach((b,j)=>b.classList.toggle('on',j===i));
+  stageCard.style.setProperty('--stage-color',s.col);
+  stageCard.innerHTML=`<h3>${s.full}</h3><span class="tag mono">${s.tag}</span><p>${s.desc}</p><p class="note">${s.note}</p>`;
+  stageNav.querySelectorAll('.stage-tab').forEach((b,j)=>{
+    b.classList.toggle('is-on',j===i);
+    b.style.setProperty('--stage-color',STAGES[j].col);
+  });
 }
 STAGES.forEach((s,i)=>{
   const b=document.createElement('button');
-  b.className='stage-btn'+(i===0?' on':'');
-  b.style.cssText=`border-left-color:${s.col};${i===0?'':''}`;
+  b.className='stage-tab'+(i===0?' is-on':'');
   b.textContent=s.label;
   b.onclick=()=>showStage(i);
   stageNav.appendChild(b);
 });
 showStage(0);
 
-const CYCLE_BLOCKS=[
-  {l:'N1',bg:'#B5D4F4',tc:'#0C447C',w:'42px'},{l:'N2',bg:'#A9A6E0',tc:'#26215C',w:'62px'},{l:'N3',bg:'#534AB7',tc:'#EEEDFE',w:'72px'},{l:'REM',bg:'#F6C97A',tc:'#3D2600',w:'50px'},
-  {l:'N2',bg:'#A9A6E0',tc:'#26215C',w:'42px'},{l:'N3',bg:'#534AB7',tc:'#EEEDFE',w:'55px'},{l:'REM',bg:'#F6C97A',tc:'#3D2600',w:'70px'},
-  {l:'N2',bg:'#A9A6E0',tc:'#26215C',w:'35px'},{l:'REM',bg:'#F6C97A',tc:'#3D2600',w:'90px'},
-  {l:'N2',bg:'#A9A6E0',tc:'#26215C',w:'30px'},{l:'REM',bg:'#F6C97A',tc:'#3D2600',w:'110px'},
-];
-const cycleRow=document.getElementById('cycle-row');
-CYCLE_BLOCKS.forEach((b,i)=>{
-  const d=document.createElement('div');
-  d.className='cblk';d.style.cssText=`width:${b.w};background:${b.bg};color:${b.tc}`;d.textContent=b.l;
-  cycleRow.appendChild(d);
-  if(i<CYCLE_BLOCKS.length-1){const a=document.createElement('span');a.className='carrow';a.textContent='›';cycleRow.appendChild(a);}
-});
+/* ============================================
+   HYPNOGRAM (signature chart)
+   ============================================ */
+(function(){
+  const segs=[
+    {l:'N1',m:31},{l:'N2',m:45},{l:'N3',m:52},{l:'REM',m:36},
+    {l:'N2',m:31},{l:'N3',m:40},{l:'REM',m:51},
+    {l:'N2',m:26},{l:'REM',m:66},
+    {l:'N2',m:22},{l:'REM',m:80},
+  ];
+  const depth={'Awake':0,'REM':1,'N1':2,'N2':3,'N3':4};
+  const colors={'N1':'#93A9B8','N2':'#6E7E93','N3':'#38564A','REM':'#A97D33'};
+  const total=segs.reduce((a,s)=>a+s.m,0);
+  const W=900,H=210,padL=64,padR=20,padT=14,padB=34;
+  const cw=W-padL-padR,ch=H-padT-padB;
+  const rowH=ch/4;
+  const yFor=lab=>padT+depth[lab]*rowH;
+
+  let x=padL,path=`M${x},${yFor(segs[0].l)}`;
+  let rects='';
+  segs.forEach(s=>{
+    const w=(s.m/total)*cw;
+    const y=yFor(s.l);
+    path+=` L${x},${y} L${x+w},${y}`;
+    rects+=`<rect x="${x.toFixed(1)}" y="${(H-padB+4).toFixed(1)}" width="${w.toFixed(1)}" height="4" fill="${colors[s.l]}"/>`;
+    x+=w;
+  });
+
+  const startHour=22; // 10pm
+  let axis='';
+  for(let h=0;h<=8;h++){
+    const hx=padL+(h*60/total*(60))*0;
+  }
+  for(let h=0;h<=8;h+=2){
+    const hx=padL+(h*60/total)*cw;
+    const label=((startHour+h)%24);
+    const disp=label===0?'12a':label>12?(label-12)+'a':label===12?'12p':label+'p';
+    axis+=`<line x1="${hx.toFixed(1)}" y1="${padT}" x2="${hx.toFixed(1)}" y2="${H-padB}" stroke="rgba(241,236,223,0.06)" stroke-width="1"/>`;
+    axis+=`<text x="${hx.toFixed(1)}" y="${H-padB+18}" font-family="IBM Plex Mono" font-size="10" fill="rgba(241,236,223,0.45)" text-anchor="middle">${disp}</text>`;
+  }
+  let ylabels='';
+  ['Awake','REM','N1','N2','N3'].forEach((lab,i)=>{
+    ylabels+=`<text x="${padL-10}" y="${(padT+i*rowH+4).toFixed(1)}" font-family="IBM Plex Mono" font-size="10" fill="rgba(241,236,223,0.45)" text-anchor="end">${lab}</text>`;
+  });
+
+  document.getElementById('hypnogram').innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Hypnogram showing sleep stage depth across a typical eight-hour night">
+    ${axis}
+    <path d="${path}" fill="none" stroke="#EDE7D8" stroke-width="1.5" stroke-linejoin="round"/>
+    ${rects}
+    ${ylabels}
+  </svg>`;
+
+  const legend=document.getElementById('hyp-legend');
+  [['N1 — light','#93A9B8'],['N2 — light','#6E7E93'],['N3 — deep','#38564A'],['REM','#A97D33']].forEach(([label,col])=>{
+    const d=document.createElement('div');d.className='leg-item';
+    d.innerHTML=`<span class="leg-swatch" style="background:${col}"></span>${label}`;
+    legend.appendChild(d);
+  });
+})();
 
 function updateRemCycles(v){
   v=parseFloat(v);
@@ -612,8 +912,8 @@ function updateRemCycles(v){
   for(let i=0;i<Math.max(fullCycles,1);i++){
     const p=document.createElement('div');
     const isRem=i>=1;
-    p.className='cycle-pill'+(i>=fullCycles?' dim':'')+(isRem?' rem':'');
-    p.textContent=i===0?'Cycle 1 (little REM)':`Cycle ${i+1} ${isRem?'✓ REM':''}`;
+    p.className='cycle-tick'+(i>=fullCycles?' is-dim':'')+(isRem?' is-rem':'');
+    p.textContent=i===0?'Cycle 1 (little REM)':`Cycle ${i+1}${isRem?' — REM':''}`;
     display.appendChild(p);
   }
   let note='';
@@ -624,7 +924,9 @@ function updateRemCycles(v){
 }
 updateRemCycles(8);
 
-// ASSESSMENT
+/* ============================================
+   ASSESSMENT
+   ============================================ */
 let aa={hours:8,screens:2,stress:2,bedtime:null,caffeine:null};
 let assessBuilt=false;
 function buildAssess(){
@@ -640,16 +942,16 @@ function buildAssess(){
   qs.forEach(q=>{
     const b=document.createElement('div');b.className='assess-q';
     if(q.type==='sl'){
-      b.innerHTML=`<span class="q-label">${q.label}</span><div class="sl-row"><input type="range" min="${q.min}" max="${q.max}" step="${q.step}" value="${q.val}" id="sl-${q.key}"><span class="slval" id="sv-${q.key}">${q.fmt(q.val)}</span></div>`;
+      b.innerHTML=`<span class="q-label">${q.label}</span><div class="slider-row" style="max-width:420px"><input type="range" min="${q.min}" max="${q.max}" step="${q.step}" value="${q.val}" id="sl-${q.key}"><span class="readout mono" id="sv-${q.key}">${q.fmt(q.val)}</span></div>`;
       c.appendChild(b);
       b.querySelector('input').oninput=e=>{aa[q.key]=parseFloat(e.target.value);document.getElementById('sv-'+q.key).textContent=q.fmt(parseFloat(e.target.value));};
     } else {
-      b.innerHTML=`<span class="q-label">${q.label}</span><div class="opts" id="opts-${q.key}"></div>`;
+      b.innerHTML=`<span class="q-label">${q.label}</span><div class="ft-opts" id="opts-${q.key}"></div>`;
       c.appendChild(b);
-      const opts=b.querySelector('.opts');
+      const opts=b.querySelector('.ft-opts');
       q.opts.forEach(o=>{
-        const btn=document.createElement('button');btn.className='obtn';btn.textContent=o;
-        btn.onclick=()=>{opts.querySelectorAll('.obtn').forEach(x=>x.classList.remove('on'));btn.classList.add('on');aa[q.key]=o;};
+        const btn=document.createElement('button');btn.className='opt';btn.textContent=o;
+        btn.onclick=()=>{opts.querySelectorAll('.opt').forEach(x=>x.classList.remove('is-on'));btn.classList.add('is-on');aa[q.key]=o;};
         opts.appendChild(btn);
       });
     }
@@ -694,17 +996,19 @@ function calcScore(){
   ALL_TIPS.filter(t=>!priority.includes(t)).forEach(t=>priority.push(t));
   const tips=priority.slice(0,5);
   const tl=document.getElementById('tips-inline');
-  tl.innerHTML='<p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.06em">Your personalised tips</p>';
-  tips.forEach(t=>{
-    const d=document.createElement('div');d.className='tip-pill';
-    d.innerHTML=`<div class="tip-pill-text"><h4>${t.title}</h4><p>${t.desc}</p></div>`;
+  tl.innerHTML='';
+  tips.forEach((t,i)=>{
+    const d=document.createElement('div');d.className='tip-row';
+    d.innerHTML=`<div class="tip-num mono">${String(i+1).padStart(2,'0')}</div><div><h4>${t.title}</h4><p>${t.desc}</p></div>`;
     tl.appendChild(d);
   });
-  const sr=document.getElementById('score-reveal');sr.classList.add('on');
+  const sr=document.getElementById('score-reveal');sr.classList.add('is-on');
   sr.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// MYTHS
+/* ============================================
+   MYTHS
+   ============================================ */
 const MYTHS=[
   {cat:'Memory & learning',q:'You can fully catch up on lost sleep by sleeping in on the weekend.',a:false,exp:'Weekend sleep-ins can reduce some of the physical effects of sleep debt, but research shows they can\'t fully reverse the cognitive and memory impacts of a disrupted week. They also shift your body clock, making Monday mornings harder.'},
   {cat:'Circadian rhythm',q:'Teenagers are biologically wired to go to sleep later at night than adults.',a:true,exp:'During puberty, the circadian rhythm shifts by 1–2 hours, making it genuinely harder to feel sleepy before 11pm. This is a real physiological shift driven by hormone changes — not laziness or habit.'},
@@ -728,10 +1032,10 @@ let mythAnswered=new Array(MYTHS.length).fill(null);
 let mythCorrect=0;
 const mythList=document.getElementById('myth-list');
 MYTHS.forEach((m,i)=>{
-  const d=document.createElement('div');d.className='myth-card';
-  d.innerHTML=`<div class="myth-cat">${m.cat}</div><div class="myth-q">${i+1}. ${m.q}</div>
-  <div class="myth-btns" id="mb-${i}"><button class="mbtn" onclick="answerMyth(${i},true)">True</button><button class="mbtn" onclick="answerMyth(${i},false)">False</button></div>
-  <div class="myth-reveal" id="mr-${i}"><div class="mresult" id="mres-${i}"></div><div id="mexp-${i}"></div></div>`;
+  const d=document.createElement('div');d.className='claim';
+  d.innerHTML=`<div class="claim-cat mono">${m.cat}</div><div class="claim-q">${i+1}. ${m.q}</div>
+  <div class="claim-btns" id="mb-${i}"><button class="tf-btn" onclick="answerMyth(${i},true)">True</button><button class="tf-btn" onclick="answerMyth(${i},false)">False</button></div>
+  <div class="claim-reveal" id="mr-${i}"><div class="claim-verdict mono" id="mres-${i}"></div><div class="claim-exp" id="mexp-${i}"></div></div>`;
   mythList.appendChild(d);
 });
 
@@ -740,45 +1044,49 @@ function answerMyth(i,ans){
   mythAnswered[i]=ans;
   const correct=ans===MYTHS[i].a;
   if(correct)mythCorrect++;
-  document.querySelectorAll(`#mb-${i} .mbtn`).forEach(b=>{
+  document.querySelectorAll(`#mb-${i} .tf-btn`).forEach(b=>{
     const isT=b.textContent==='True';
     if(isT===MYTHS[i].a)b.classList.add('correct');
     else if(isT===ans)b.classList.add('wrong');
     b.onclick=null;b.style.cursor='default';
   });
-  const rev=document.getElementById('mr-'+i);rev.classList.add('on');
+  const rev=document.getElementById('mr-'+i);rev.classList.add('is-on');
   const res=document.getElementById('mres-'+i);
-  res.className='mresult '+(correct?'right':'wrong');
-  res.textContent=correct?'Correct.':'Not quite — '+( MYTHS[i].a?'this is actually true.':'this is actually false.');
+  res.className='claim-verdict mono '+(correct?'right':'wrong');
+  res.textContent=correct?'Correct':'Not quite — '+( MYTHS[i].a?'this is actually true':'this is actually false');
   document.getElementById('mexp-'+i).textContent=MYTHS[i].exp;
   const answered=mythAnswered.filter(a=>a!==null).length;
   document.getElementById('mscore').textContent=mythCorrect+' / '+answered;
   document.getElementById('mprog').style.width=(answered/MYTHS.length*100)+'%';
-  if(answered===MYTHS.length)document.getElementById('mscore-sub').textContent=`Finished! You got ${mythCorrect} out of ${MYTHS.length} correct.`;
+  if(answered===MYTHS.length)document.getElementById('mscore-sub').textContent=`Finished — ${mythCorrect} out of ${MYTHS.length} correct`;
   else document.getElementById('mscore-sub').textContent=`${answered} answered — ${MYTHS.length-answered} remaining`;
 }
 
-// HYGIENE
+/* ============================================
+   HYGIENE
+   ============================================ */
 const HYGIENE=[
-  {title:'Keep a consistent bedtime',desc:'Going to bed and waking at the same time every day — including weekends — is the single most effective sleep habit.',why:'Why: your body clock (circadian rhythm) thrives on predictability. Irregular schedules produce a state similar to chronic jet lag.'},
-  {title:'Screens off 30 minutes before bed',desc:'Blue light from phones, laptops and TVs suppresses melatonin production and delays the onset of sleep.',why:'Why: melatonin signals to your brain that it\'s dark and time to sleep. Blue light blocks this signal.'},
-  {title:'Keep your room cool',desc:'Around 18°C is the optimal sleeping temperature for most people. Warm rooms reduce deep sleep.',why:'Why: your core body temperature must drop ~1°C to initiate sleep. A cool room accelerates this.'},
-  {title:'No caffeine after 3pm',desc:'Caffeine has a half-life of 5–6 hours, meaning half of it is still active in your system at 9pm if you had it at 4pm.',why:'Why: caffeine blocks adenosine — the chemical that makes you feel sleepy — even when you don\'t feel its effects.'},
-  {title:'Build a 10-minute wind-down',desc:'A short, repeated routine before bed trains your brain to associate that sequence with sleep onset.',why:'Why: the brain learns associations through repetition. A predictable routine signals "sleep is coming".'},
-  {title:'Get morning light',desc:'Expose yourself to bright light first thing in the morning to anchor your body clock.',why:'Why: morning light is the primary signal your circadian rhythm uses to set its daily timer. This also makes night-time sleepiness arrive on schedule.'},
-  {title:'Exercise earlier in the day',desc:'Regular exercise dramatically improves sleep quality — but keep vigorous workouts more than 2 hours before bed.',why:'Why: exercise raises core temperature and adrenaline. These need to fall before sleep can begin.'},
-  {title:'Study at your desk, not in bed',desc:'Your brain links where you are with what you do. Studying in bed weakens the bed–sleep association.',why:'Why: this is called stimulus control therapy — one of the most evidence-backed behavioural interventions for insomnia.'},
-  {title:'Stay hydrated but taper off before bed',desc:'Dehydration disrupts sleep, but drinking too much before bed causes wake-ups. Taper off about 2 hours out.',why:'Why: even mild dehydration (1–2%) measurably reduces slow-wave and REM sleep.'},
-  {title:'If you can\'t sleep, get up',desc:'Lying awake for more than 20 minutes teaches your brain that bed is a place to lie awake. Get up and do something quiet until you feel sleepy.',why:'Why: this prevents the anxious association between bed and wakefulness that causes ongoing insomnia.'},
+  {title:'Keep a consistent bedtime',desc:'Going to bed and waking at the same time every day — including weekends — is the single most effective sleep habit.',why:'Your body clock (circadian rhythm) thrives on predictability. Irregular schedules produce a state similar to chronic jet lag.'},
+  {title:'Screens off 30 minutes before bed',desc:'Blue light from phones, laptops and TVs suppresses melatonin production and delays the onset of sleep.',why:'Melatonin signals to your brain that it\'s dark and time to sleep. Blue light blocks this signal.'},
+  {title:'Keep your room cool',desc:'Around 18°C is the optimal sleeping temperature for most people. Warm rooms reduce deep sleep.',why:'Your core body temperature must drop ~1°C to initiate sleep. A cool room accelerates this.'},
+  {title:'No caffeine after 3pm',desc:'Caffeine has a half-life of 5–6 hours, meaning half of it is still active in your system at 9pm if you had it at 4pm.',why:'Caffeine blocks adenosine — the chemical that makes you feel sleepy — even when you don\'t feel its effects.'},
+  {title:'Build a 10-minute wind-down',desc:'A short, repeated routine before bed trains your brain to associate that sequence with sleep onset.',why:'The brain learns associations through repetition. A predictable routine signals "sleep is coming".'},
+  {title:'Get morning light',desc:'Expose yourself to bright light first thing in the morning to anchor your body clock.',why:'Morning light is the primary signal your circadian rhythm uses to set its daily timer. This also makes night-time sleepiness arrive on schedule.'},
+  {title:'Exercise earlier in the day',desc:'Regular exercise dramatically improves sleep quality — but keep vigorous workouts more than 2 hours before bed.',why:'Exercise raises core temperature and adrenaline. These need to fall before sleep can begin.'},
+  {title:'Study at your desk, not in bed',desc:'Your brain links where you are with what you do. Studying in bed weakens the bed–sleep association.',why:'This is called stimulus control therapy — one of the most evidence-backed behavioural interventions for insomnia.'},
+  {title:'Stay hydrated but taper off before bed',desc:'Dehydration disrupts sleep, but drinking too much before bed causes wake-ups. Taper off about 2 hours out.',why:'Even mild dehydration (1–2%) measurably reduces slow-wave and REM sleep.'},
+  {title:'If you can\'t sleep, get up',desc:'Lying awake for more than 20 minutes teaches your brain that bed is a place to lie awake. Get up and do something quiet until you feel sleepy.',why:'This prevents the anxious association between bed and wakefulness that causes ongoing insomnia.'},
 ];
 const hGrid=document.getElementById('hyg-grid');
-HYGIENE.forEach(h=>{
-  const d=document.createElement('div');d.className='hyg-card';
-  d.innerHTML=`<h3>${h.title}</h3><p>${h.desc}</p><p class="why">${h.why}</p>`;
+HYGIENE.forEach((h,i)=>{
+  const d=document.createElement('div');d.className='hyg-row';
+  d.innerHTML=`<div class="hyg-num mono">${String(i+1).padStart(2,'0')}</div><div><h3>${h.title}</h3><p>${h.desc}</p><div class="hyg-why"><div class="hyg-why-label mono">Why</div><p>${h.why}</p></div></div>`;
   hGrid.appendChild(d);
 });
 
-// GAME
+/* ============================================
+   GAME
+   ============================================ */
 const DISTRACTORS=[
   {label:'Phone buzz',dmg:1},
   {label:'Caffeine',dmg:1},
@@ -820,7 +1128,6 @@ function startGame(){
 function spawnDistractor(){
   if(!gameRunning)return;
   const field=document.getElementById('game-field');
-  const rect=field.getBoundingClientRect();
   const d=DISTRACTORS[Math.floor(Math.random()*DISTRACTORS.length)];
   const el=document.createElement('div');
   el.className='distractor';
@@ -843,9 +1150,9 @@ function spawnDistractor(){
     const pop=document.createElement('div');
     pop.className='combo-pop';
     pop.textContent='+10';
-    pop.style.cssText=`left:${e.clientX-20}px;top:${e.clientY-20}px`;
+    pop.style.cssText=`left:${e.clientX-16}px;top:${e.clientY-16}px`;
     document.body.appendChild(pop);
-    setTimeout(()=>pop.remove(),800);
+    setTimeout(()=>pop.remove(),700);
   };
   setTimeout(()=>{el.style.left=tx+'px';el.style.top=ty+'px';},50);
   setTimeout(()=>{
@@ -861,7 +1168,7 @@ function spawnDistractor(){
 
 function updateHearts(){
   let html='';
-  for(let i=0;i<3;i++)html+=`<span class="heart${i>=gHealth?' lost':''}"></span>`;
+  for(let i=0;i<3;i++)html+=`<span class="life${i>=gHealth?' lost':''}"></span>`;
   document.getElementById('g-health').innerHTML=html;
 }
 
