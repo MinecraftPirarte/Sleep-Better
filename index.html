@@ -67,8 +67,7 @@ nav{background:var(--navy);padding:0;position:sticky;top:0;z-index:100;box-shado
 .feel-box h3{font-size:17px;font-weight:600;color:var(--navy);margin-bottom:4px}
 .feel-box .sub{font-size:13px;color:var(--muted);margin-bottom:1.25rem}
 .feel-display{background:var(--paper);border-radius:var(--radius);padding:1.25rem;margin-top:1rem;text-align:center;transition:all 0.3s}
-.feel-emoji{font-size:48px;margin-bottom:8px;display:block}
-.feel-label{font-size:18px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.feel-label{font-size:22px;font-weight:600;color:var(--navy);margin-bottom:6px}
 .feel-desc{font-size:13px;color:var(--muted);line-height:1.5}
 .feel-sub{font-size:11.5px;color:var(--danger);margin-top:6px;font-style:italic}
 .hrs-row{display:flex;align-items:center;gap:12px}
@@ -91,7 +90,6 @@ nav{background:var(--navy);padding:0;position:sticky;top:0;z-index:100;box-shado
 .home-nav-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:1.5rem}
 .hnav{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;cursor:pointer;transition:all 0.2s;text-align:center}
 .hnav:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(169,166,224,0.25)}
-.hnav .icon{font-size:28px;margin-bottom:8px;display:block}
 .hnav h3{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:3px}
 .hnav p{font-size:11.5px;color:var(--muted)}
 
@@ -153,7 +151,6 @@ nav{background:var(--navy);padding:0;position:sticky;top:0;z-index:100;box-shado
 .score-bar-f{height:100%;border-radius:6px;background:var(--purple-light);transition:width 0.8s cubic-bezier(0.16,1,0.3,1)}
 .tips-inline{margin-top:1.5rem}
 .tip-pill{background:rgba(255,255,255,0.08);border-radius:var(--radius);padding:1rem;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
-.tip-pill span{font-size:20px;flex-shrink:0}
 .tip-pill-text h4{font-size:14px;font-weight:600;color:var(--white);margin-bottom:3px}
 .tip-pill-text p{font-size:12.5px;color:rgba(255,255,255,0.65);line-height:1.5}
 
@@ -180,7 +177,6 @@ nav{background:var(--navy);padding:0;position:sticky;top:0;z-index:100;box-shado
 /* HYGIENE */
 .hyg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 .hyg-card{background:var(--white);border-radius:var(--radius-lg);padding:1.25rem;border:1px solid var(--border);border-top:3px solid var(--purple)}
-.hyg-icon{font-size:26px;margin-bottom:10px}
 .hyg-card h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px}
 .hyg-card p{font-size:13px;color:#666;line-height:1.55}
 .hyg-card .why{font-size:12px;color:var(--muted);font-style:italic;margin-top:7px;padding-top:7px;border-top:1px solid var(--border)}
@@ -193,16 +189,16 @@ nav{background:var(--navy);padding:0;position:sticky;top:0;z-index:100;box-shado
 .game-hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
 .g-score{font-family:'Playfair Display',serif;font-size:28px;color:var(--white)}
 .g-timer{font-size:20px;font-weight:600;color:var(--gold)}
-.g-health{display:flex;gap:4px}
-.heart{font-size:18px;transition:filter 0.2s}
-.heart.lost{filter:grayscale(1);opacity:0.3}
+.g-health{display:flex;gap:6px}
+.heart{width:14px;height:14px;border-radius:50%;background:var(--gold);display:inline-block;transition:background 0.2s,opacity 0.2s}
+.heart.lost{background:rgba(255,255,255,0.15);opacity:0.6}
 .game-field{position:relative;height:300px;background:rgba(0,0,0,0.2);border-radius:var(--radius);overflow:hidden}
 .sleeper{position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%);text-align:center;pointer-events:none;z-index:2}
-.bed-icon{font-size:64px;line-height:1;display:block}
+.bed-icon{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--white);line-height:1;display:block}
 .sleeper-status{font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px}
-.distractor{position:absolute;font-size:32px;cursor:pointer;z-index:3;transition:transform 0.1s;user-select:none}
-.distractor:hover{transform:scale(1.1)}
-.distractor:active{transform:scale(0.9)}
+.distractor{position:absolute;font-size:12px;font-weight:600;color:var(--navy);background:var(--gold);padding:6px 12px;border-radius:99px;cursor:pointer;z-index:3;transition:transform 0.1s;user-select:none;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,0.3)}
+.distractor:hover{transform:scale(1.08)}
+.distractor:active{transform:scale(0.92)}
 .game-msg{text-align:center;padding:2rem;color:var(--white)}
 .game-msg h2{font-size:28px;margin-bottom:8px}
 .game-msg p{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:1.25rem}
@@ -211,20 +207,10 @@ nav{background:var(--navy);padding:0;position:sticky;top:0;z-index:100;box-shado
 .combo-pop{position:fixed;pointer-events:none;font-size:20px;font-weight:700;color:var(--gold);animation:popUp 0.8s forwards;z-index:999}
 @keyframes popUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-50px) scale(1.4)}}
 
-/* RESOURCES */
-.rlink{display:flex;align-items:center;gap:14px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:10px;cursor:pointer;transition:all 0.2s;text-decoration:none;color:inherit}
-.rlink:hover{border-color:var(--purple);transform:translateX(3px)}
-.rlink-icon{font-size:28px;flex-shrink:0}
-.rlink h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:3px}
-.rlink p{font-size:12.5px;color:var(--muted)}
-.rlink-arr{margin-left:auto;color:var(--muted);font-size:18px}
-
-
-
 /* FOOTER */
 footer{background:var(--navy);padding:1.5rem;text-align:center;margin-top:2rem}
 footer p{font-size:12px;color:rgba(255,255,255,0.3)}
-#secret-trigger{cursor:pointer;font-size:18px;margin-left:6px}
+#secret-trigger{cursor:pointer;margin-left:6px}
 
 /* UTIL */
 .hidden{display:none!important}
@@ -243,13 +229,12 @@ footer p{font-size:12px;color:rgba(255,255,255,0.3)}
 
 <nav>
   <div class="nav-inner">
-    <div class="brand" id="brand-logo">🌙 Sleep Better</div>
+    <div class="brand" id="brand-logo">Sleep Better</div>
     <button class="ntab on" onclick="goPage('home')"><span class="dot"></span>Home</button>
     <button class="ntab" onclick="goPage('science')"><span class="dot"></span>Sleep science</button>
     <button class="ntab" onclick="goPage('assess')"><span class="dot"></span>Self-assessment</button>
     <button class="ntab" onclick="goPage('myths')"><span class="dot"></span>Myth busters</button>
     <button class="ntab" onclick="goPage('hygiene')"><span class="dot"></span>Hygiene guide</button>
-    <button class="ntab" onclick="goPage('resources')"><span class="dot"></span>Resources</button>
 
   </div>
 </nav>
@@ -259,7 +244,7 @@ footer p{font-size:12px;color:rgba(255,255,255,0.3)}
   <div class="hero">
     <h1>Sleep Better,<br><em>Learn Better.</em></h1>
     <p>A sleep literacy toolkit for CGS students. Find out what sleep does to your brain, where your habits stand, and what actually helps.</p>
-    <div class="hero-credits">CGS Community Project 2026 &mdash; Neel Gosar, Alex Webb &amp; Finn Cavanagh</div>
+    <div class="hero-credits">CGS Community Project 2026</div>
   </div>
 
   <div class="stat-strip">
@@ -286,7 +271,6 @@ footer p{font-size:12px;color:rgba(255,255,255,0.3)}
         <div class="hrs-val" id="feel-hrs">8 hrs</div>
       </div>
       <div class="feel-display" id="feel-display">
-        <span class="feel-emoji" id="feel-emoji">😊</span>
         <div class="feel-label" id="feel-label">Well-rested</div>
         <div class="feel-desc" id="feel-desc">Within the recommended range. Memory consolidation and executive function are working properly.</div>
         <div class="feel-sub hidden" id="feel-sub"></div>
@@ -335,29 +319,20 @@ footer p{font-size:12px;color:rgba(255,255,255,0.3)}
 
   <div class="home-nav-grid">
     <div class="hnav" onclick="goPage('science')">
-      <span class="icon">🧠</span>
       <h3>Sleep science</h3>
       <p>How your brain cycles through the night</p>
     </div>
     <div class="hnav" onclick="goPage('assess')">
-      <span class="icon">📋</span>
       <h3>Self-assessment</h3>
       <p>Get your personal sleep score</p>
     </div>
     <div class="hnav" onclick="goPage('myths')">
-      <span class="icon">❓</span>
       <h3>Myth busters</h3>
       <p>16 sleep myths: true or false?</p>
     </div>
     <div class="hnav" onclick="goPage('hygiene')">
-      <span class="icon">🌙</span>
       <h3>Hygiene guide</h3>
       <p>The habits with real evidence</p>
-    </div>
-    <div class="hnav" onclick="goPage('resources')">
-      <span class="icon">🔗</span>
-      <h3>Resources</h3>
-      <p>Further reading from trusted sources</p>
     </div>
   </div>
 </div>
@@ -440,20 +415,6 @@ footer p{font-size:12px;color:rgba(255,255,255,0.3)}
   <div class="hyg-grid" id="hyg-grid"></div>
 </div>
 
-<!-- RESOURCES -->
-<div class="page" id="page-resources">
-  <div class="page-title">Further resources</div>
-  <p class="page-sub">The organisations and publications that informed this toolkit. All links open their websites.</p>
-  <div id="res-list"></div>
-  <div class="divider"></div>
-  <div class="card">
-    <h3>Sources used in this toolkit</h3>
-    <p>Murdoch Children's Research Institute — Sleep in children and adolescents (2024). National Library of Medicine — "Sleep Deprivation and Insomnia in Adolescence: Implications for Mental Health" (March 2023). Sleep Health Foundation — Adolescent Sleep Health Fact Sheet. Black Dog Institute — Sleep and mental health in young people. American Academy of Sleep Medicine — Recommended sleep duration for children and adolescents.</p>
-  </div>
-</div>
-
-
-
 <!-- GAME (hidden) -->
 <div class="page" id="page-game" style="background:var(--navy);min-height:100vh">
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.5rem">
@@ -463,7 +424,6 @@ footer p{font-size:12px;color:rgba(255,255,255,0.3)}
   <p class="page-sub">Tap the distractions before they reach the sleeper. Keep your sleep quality high for 30 seconds.</p>
   <div class="game-area" id="game-area">
     <div id="game-screen-start" class="game-msg">
-      <div style="font-size:64px;margin-bottom:12px">🛏️</div>
       <h2 style="color:var(--white);margin-bottom:8px">Sleep Defender</h2>
       <p>Tap phones, coffee, lights, and noise before they reach the sleeper. Each one that gets through costs you a heart. You have 30 seconds.</p>
       <button class="cta purple" onclick="startGame()">Start game</button>
@@ -472,12 +432,12 @@ footer p{font-size:12px;color:rgba(255,255,255,0.3)}
       <div class="game-hud">
         <div class="g-score" id="g-score">Score: 0</div>
         <div class="g-timer" id="g-timer">30</div>
-        <div class="g-health" id="g-health">❤️❤️❤️</div>
+        <div class="g-health" id="g-health"></div>
       </div>
       <div class="game-field" id="game-field">
         <div class="sleeper" id="sleeper">
-          <span class="bed-icon">🛏️</span>
-          <div class="sleeper-status" id="sleeper-status">💤 Sleeping well</div>
+          <span class="bed-icon">Sleeper</span>
+          <div class="sleeper-status" id="sleeper-status">Sleeping well</div>
         </div>
       </div>
       <div class="game-instructions">Tap the distractions to stop them reaching the sleeper!</div>
@@ -493,11 +453,11 @@ footer p{font-size:12px;color:rgba(255,255,255,0.3)}
 </div>
 
 <footer>
-  <p>Sleep Better, Learn Better &mdash; CGS Year 9 Community Project 2026 <span id="secret-trigger" title="...">🌙</span></p>
+  <p>Sleep Better, Learn Better &mdash; CGS Year 9 Community Project 2026 <span id="secret-trigger" title="..." style="display:inline-block;width:14px;height:14px"></span></p>
 </footer>
 
 <script>
-const PAGES=['home','science','assess','myths','hygiene','resources','game'];
+const PAGES=['home','science','assess','myths','hygiene','game'];
 
 function goPage(id){
   PAGES.forEach(p=>{
@@ -527,13 +487,13 @@ document.getElementById('brand-logo').onclick=()=>{
 
 // FEEL SLIDER
 const FEEL=[
-  {hrs:4,emoji:'😵',label:'Severely impaired',desc:'Reaction time equivalent to being legally drunk. Memory, focus, and emotional control are all critically affected.',sub:'⚠️ This is associated with increased risk of accidents and mental health issues.'},
-  {hrs:5,emoji:'😩',label:'Significantly impaired',desc:'Mood, memory and cognitive speed are all substantially reduced. The cumulative sleep debt will build up across the week.',sub:'⚠️ Most teens functioning on this amount think they feel fine — but tests show they are not.'},
-  {hrs:6,emoji:'😴',label:'Below recommended',desc:'Performing noticeably below your cognitive peak. Irritability, slower reaction time, and reduced working memory are all likely.',sub:'⚠️ Regularly sleeping 6 hours is associated with lower academic outcomes.'},
-  {hrs:7,emoji:'😐',label:'Slightly short',desc:'Getting closer to the recommended range. Still slightly under for most teens — you may feel okay but are not operating at full capacity.',sub:''},
-  {hrs:8,emoji:'😊',label:'Well-rested',desc:'Within the recommended range for teens. Memory consolidation, executive function, and emotional regulation are all working properly.',sub:''},
-  {hrs:9,emoji:'🙂',label:'Optimal',desc:'Peak cognitive performance for most teenagers. REM sleep cycles are completing fully, which means learning from yesterday is being properly locked in.',sub:''},
-  {hrs:10,emoji:'😁',label:'Excellent',desc:'At the top of the recommended range. Full restorative function — your brain and body are getting everything they need.',sub:''},
+  {hrs:4,label:'Severely impaired',desc:'Reaction time equivalent to being legally drunk. Memory, focus, and emotional control are all critically affected.',sub:'This is associated with increased risk of accidents and mental health issues.'},
+  {hrs:5,label:'Significantly impaired',desc:'Mood, memory and cognitive speed are all substantially reduced. The cumulative sleep debt will build up across the week.',sub:'Most teens functioning on this amount think they feel fine — but tests show they are not.'},
+  {hrs:6,label:'Below recommended',desc:'Performing noticeably below your cognitive peak. Irritability, slower reaction time, and reduced working memory are all likely.',sub:'Regularly sleeping 6 hours is associated with lower academic outcomes.'},
+  {hrs:7,label:'Slightly short',desc:'Getting closer to the recommended range. Still slightly under for most teens — you may feel okay but are not operating at full capacity.',sub:''},
+  {hrs:8,label:'Well-rested',desc:'Within the recommended range for teens. Memory consolidation, executive function, and emotional regulation are all working properly.',sub:''},
+  {hrs:9,label:'Optimal',desc:'Peak cognitive performance for most teenagers. REM sleep cycles are completing fully, which means learning from yesterday is being properly locked in.',sub:''},
+  {hrs:10,label:'Excellent',desc:'At the top of the recommended range. Full restorative function — your brain and body are getting everything they need.',sub:''},
 ];
 const feelSlider=document.getElementById('feel-slider');
 const feelHrs=document.getElementById('feel-hrs');
@@ -542,7 +502,6 @@ feelSlider.oninput=()=>{
   feelHrs.textContent=v+' hrs';
   const idx=Math.min(Math.floor((v-4)/1),FEEL.length-1);
   const f=FEEL[Math.max(0,idx)];
-  document.getElementById('feel-emoji').textContent=f.emoji;
   document.getElementById('feel-label').textContent=f.label;
   document.getElementById('feel-desc').textContent=f.desc;
   const sub=document.getElementById('feel-sub');
@@ -596,9 +555,9 @@ function owlAnswer(step,val){
     const res=document.getElementById('owl-result');
     res.classList.add('on');
     let type,desc;
-    if(sum<=2){type='🌅 Early bird';desc='You\'re naturally aligned with morning light. Your body clock is set earlier than average — which actually puts you in a good position for school schedules. Your peak cognitive window is in the morning, so use it for your hardest subjects.';}
-    else if(sum<=4){type='🕊️ Intermediate';desc='You sit between the extremes — you can adapt reasonably well to both early and late schedules. Most people are in this category. Consistency in your sleep and wake times matters most for you.';}
-    else{type='🦉 Night owl';desc='Your circadian rhythm is shifted later than average, which is common in teenagers. You feel most alert in the evening — but school starts early, so building a consistent wind-down routine is especially important for you.';}
+    if(sum<=2){type='Early bird';desc='You\'re naturally aligned with morning light. Your body clock is set earlier than average — which actually puts you in a good position for school schedules. Your peak cognitive window is in the morning, so use it for your hardest subjects.';}
+    else if(sum<=4){type='Intermediate';desc='You sit between the extremes — you can adapt reasonably well to both early and late schedules. Most people are in this category. Consistency in your sleep and wake times matters most for you.';}
+    else{type='Night owl';desc='Your circadian rhythm is shifted later than average, which is common in teenagers. You feel most alert in the evening — but school starts early, so building a consistent wind-down routine is especially important for you.';}
     document.getElementById('owl-type').textContent=type;
     document.getElementById('owl-desc').textContent=desc;
   }
@@ -615,7 +574,7 @@ const stageNav=document.getElementById('stage-nav');
 const stageCard=document.getElementById('stage-card');
 function showStage(i){
   const s=STAGES[i];
-  stageCard.innerHTML=`<h3 style="color:var(--navy);margin-bottom:6px">${s.full}</h3><span class="badge badge-purple">${s.badge}</span><p style="margin-top:12px">${s.desc}</p><p class="note" style="margin-top:8px">💡 ${s.note}</p>`;
+  stageCard.innerHTML=`<h3 style="color:var(--navy);margin-bottom:6px">${s.full}</h3><span class="badge badge-purple">${s.badge}</span><p style="margin-top:12px">${s.desc}</p><p class="note" style="margin-top:8px">${s.note}</p>`;
   stageCard.style.borderLeftColor=s.col;
   stageNav.querySelectorAll('.stage-btn').forEach((b,j)=>b.classList.toggle('on',j===i));
 }
@@ -658,7 +617,7 @@ function updateRemCycles(v){
     display.appendChild(p);
   }
   let note='';
-  if(v<6)note=`⚠️ ${remCycles} meaningful REM cycle${remCycles!==1?'s':''} — significantly below what learning requires.`;
+  if(v<6)note=`Only ${remCycles} meaningful REM cycle${remCycles!==1?'s':''} — significantly below what learning requires.`;
   else if(v<8)note=`You're getting ${remCycles} REM cycle${remCycles!==1?'s':''}. Adequate but below optimal for learning consolidation.`;
   else note=`${remCycles} full REM cycles — your brain is getting the consolidation it needs to lock in today's learning.`;
   document.getElementById('rem-note').textContent=note;
@@ -698,14 +657,14 @@ function buildAssess(){
 }
 
 const ALL_TIPS=[
-  {trigger:'screens',emoji:'📱',title:'Put the phone down 30 minutes earlier',desc:'Blue light suppresses melatonin for up to 90 minutes after you stop looking at the screen — even if you feel fine. Replace that time with music, reading a physical book, or light stretching.'},
-  {trigger:'stress',emoji:'✏️',title:'Try a 5-minute brain dump before bed',desc:'Write down everything on your mind — tasks, worries, tomorrow\'s to-do list. Getting it out of your head and onto paper reduces the mental activity that keeps you awake when you\'re trying to sleep.'},
-  {trigger:'bedtime',emoji:'🕙',title:'Pick a bedtime and protect it',desc:'Consistency is the most powerful sleep habit. Even a 30-minute earlier, fixed bedtime will measurably improve sleep quality within one week. Your body clock runs on routine.'},
-  {trigger:'caffeine',emoji:'☕',title:'Cut caffeine off at 3pm',desc:'With a half-life of 5–6 hours, an energy drink at 4pm still has half its caffeine active at 9pm. Switch to water, herbal tea, or a non-caffeinated drink after 3pm.'},
-  {trigger:'hours',emoji:'🌙',title:'Build a 10-minute wind-down routine',desc:'A short, repeated routine before bed — shower, journal, dim the lights — signals to your brain that sleep is coming. The predictability of the routine is what trains the response.'},
-  {trigger:'general',emoji:'🌡️',title:'Cool your room down',desc:'Your body needs to drop its core temperature to initiate sleep. A room around 18°C is optimal. Warm rooms delay sleep onset and increase night-time wake-ups.'},
-  {trigger:'general',emoji:'📚',title:'Study at your desk, not in bed',desc:'Your brain links where you are with what you do. Studying in bed weakens the mental association between bed and sleep, making it harder to switch off when you actually need to.'},
-  {trigger:'general',emoji:'🏃',title:'Exercise earlier in the day',desc:'Regular exercise dramatically improves sleep quality — but time it. Vigorous exercise within 2 hours of bedtime raises core temperature and adrenaline, delaying sleep onset.'},
+  {trigger:'screens',title:'Put the phone down 30 minutes earlier',desc:'Blue light suppresses melatonin for up to 90 minutes after you stop looking at the screen — even if you feel fine. Replace that time with music, reading a physical book, or light stretching.'},
+  {trigger:'stress',title:'Try a 5-minute brain dump before bed',desc:'Write down everything on your mind — tasks, worries, tomorrow\'s to-do list. Getting it out of your head and onto paper reduces the mental activity that keeps you awake when you\'re trying to sleep.'},
+  {trigger:'bedtime',title:'Pick a bedtime and protect it',desc:'Consistency is the most powerful sleep habit. Even a 30-minute earlier, fixed bedtime will measurably improve sleep quality within one week. Your body clock runs on routine.'},
+  {trigger:'caffeine',title:'Cut caffeine off at 3pm',desc:'With a half-life of 5–6 hours, an energy drink at 4pm still has half its caffeine active at 9pm. Switch to water, herbal tea, or a non-caffeinated drink after 3pm.'},
+  {trigger:'hours',title:'Build a 10-minute wind-down routine',desc:'A short, repeated routine before bed — shower, journal, dim the lights — signals to your brain that sleep is coming. The predictability of the routine is what trains the response.'},
+  {trigger:'general',title:'Cool your room down',desc:'Your body needs to drop its core temperature to initiate sleep. A room around 18°C is optimal. Warm rooms delay sleep onset and increase night-time wake-ups.'},
+  {trigger:'general',title:'Study at your desk, not in bed',desc:'Your brain links where you are with what you do. Studying in bed weakens the mental association between bed and sleep, making it harder to switch off when you actually need to.'},
+  {trigger:'general',title:'Exercise earlier in the day',desc:'Regular exercise dramatically improves sleep quality — but time it. Vigorous exercise within 2 hours of bedtime raises core temperature and adrenaline, delaying sleep onset.'},
 ];
 
 function calcScore(){
@@ -738,7 +697,7 @@ function calcScore(){
   tl.innerHTML='<p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.06em">Your personalised tips</p>';
   tips.forEach(t=>{
     const d=document.createElement('div');d.className='tip-pill';
-    d.innerHTML=`<span>${t.emoji}</span><div class="tip-pill-text"><h4>${t.title}</h4><p>${t.desc}</p></div>`;
+    d.innerHTML=`<div class="tip-pill-text"><h4>${t.title}</h4><p>${t.desc}</p></div>`;
     tl.appendChild(d);
   });
   const sr=document.getElementById('score-reveal');sr.classList.add('on');
@@ -801,48 +760,33 @@ function answerMyth(i,ans){
 
 // HYGIENE
 const HYGIENE=[
-  {icon:'🕙',title:'Keep a consistent bedtime',desc:'Going to bed and waking at the same time every day — including weekends — is the single most effective sleep habit.',why:'Why: your body clock (circadian rhythm) thrives on predictability. Irregular schedules produce a state similar to chronic jet lag.'},
-  {icon:'📵',title:'Screens off 30 minutes before bed',desc:'Blue light from phones, laptops and TVs suppresses melatonin production and delays the onset of sleep.',why:'Why: melatonin signals to your brain that it\'s dark and time to sleep. Blue light blocks this signal.'},
-  {icon:'🌡️',title:'Keep your room cool',desc:'Around 18°C is the optimal sleeping temperature for most people. Warm rooms reduce deep sleep.',why:'Why: your core body temperature must drop ~1°C to initiate sleep. A cool room accelerates this.'},
-  {icon:'☕',title:'No caffeine after 3pm',desc:'Caffeine has a half-life of 5–6 hours, meaning half of it is still active in your system at 9pm if you had it at 4pm.',why:'Why: caffeine blocks adenosine — the chemical that makes you feel sleepy — even when you don\'t feel its effects.'},
-  {icon:'✏️',title:'Build a 10-minute wind-down',desc:'A short, repeated routine before bed trains your brain to associate that sequence with sleep onset.',why:'Why: the brain learns associations through repetition. A predictable routine signals "sleep is coming".'},
-  {icon:'☀️',title:'Get morning light',desc:'Expose yourself to bright light first thing in the morning to anchor your body clock.',why:'Why: morning light is the primary signal your circadian rhythm uses to set its daily timer. This also makes night-time sleepiness arrive on schedule.'},
-  {icon:'🏃',title:'Exercise earlier in the day',desc:'Regular exercise dramatically improves sleep quality — but keep vigorous workouts more than 2 hours before bed.',why:'Why: exercise raises core temperature and adrenaline. These need to fall before sleep can begin.'},
-  {icon:'📚',title:'Study at your desk, not in bed',desc:'Your brain links where you are with what you do. Studying in bed weakens the bed–sleep association.',why:'Why: this is called stimulus control therapy — one of the most evidence-backed behavioural interventions for insomnia.'},
-  {icon:'💧',title:'Stay hydrated but taper off before bed',desc:'Dehydration disrupts sleep, but drinking too much before bed causes wake-ups. Taper off about 2 hours out.',why:'Why: even mild dehydration (1–2%) measurably reduces slow-wave and REM sleep.'},
-  {icon:'🧘',title:'If you can\'t sleep, get up',desc:'Lying awake for more than 20 minutes teaches your brain that bed is a place to lie awake. Get up and do something quiet until you feel sleepy.',why:'Why: this prevents the anxious association between bed and wakefulness that causes ongoing insomnia.'},
+  {title:'Keep a consistent bedtime',desc:'Going to bed and waking at the same time every day — including weekends — is the single most effective sleep habit.',why:'Why: your body clock (circadian rhythm) thrives on predictability. Irregular schedules produce a state similar to chronic jet lag.'},
+  {title:'Screens off 30 minutes before bed',desc:'Blue light from phones, laptops and TVs suppresses melatonin production and delays the onset of sleep.',why:'Why: melatonin signals to your brain that it\'s dark and time to sleep. Blue light blocks this signal.'},
+  {title:'Keep your room cool',desc:'Around 18°C is the optimal sleeping temperature for most people. Warm rooms reduce deep sleep.',why:'Why: your core body temperature must drop ~1°C to initiate sleep. A cool room accelerates this.'},
+  {title:'No caffeine after 3pm',desc:'Caffeine has a half-life of 5–6 hours, meaning half of it is still active in your system at 9pm if you had it at 4pm.',why:'Why: caffeine blocks adenosine — the chemical that makes you feel sleepy — even when you don\'t feel its effects.'},
+  {title:'Build a 10-minute wind-down',desc:'A short, repeated routine before bed trains your brain to associate that sequence with sleep onset.',why:'Why: the brain learns associations through repetition. A predictable routine signals "sleep is coming".'},
+  {title:'Get morning light',desc:'Expose yourself to bright light first thing in the morning to anchor your body clock.',why:'Why: morning light is the primary signal your circadian rhythm uses to set its daily timer. This also makes night-time sleepiness arrive on schedule.'},
+  {title:'Exercise earlier in the day',desc:'Regular exercise dramatically improves sleep quality — but keep vigorous workouts more than 2 hours before bed.',why:'Why: exercise raises core temperature and adrenaline. These need to fall before sleep can begin.'},
+  {title:'Study at your desk, not in bed',desc:'Your brain links where you are with what you do. Studying in bed weakens the bed–sleep association.',why:'Why: this is called stimulus control therapy — one of the most evidence-backed behavioural interventions for insomnia.'},
+  {title:'Stay hydrated but taper off before bed',desc:'Dehydration disrupts sleep, but drinking too much before bed causes wake-ups. Taper off about 2 hours out.',why:'Why: even mild dehydration (1–2%) measurably reduces slow-wave and REM sleep.'},
+  {title:'If you can\'t sleep, get up',desc:'Lying awake for more than 20 minutes teaches your brain that bed is a place to lie awake. Get up and do something quiet until you feel sleepy.',why:'Why: this prevents the anxious association between bed and wakefulness that causes ongoing insomnia.'},
 ];
 const hGrid=document.getElementById('hyg-grid');
 HYGIENE.forEach(h=>{
   const d=document.createElement('div');d.className='hyg-card';
-  d.innerHTML=`<div class="hyg-icon">${h.icon}</div><h3>${h.title}</h3><p>${h.desc}</p><p class="why">${h.why}</p>`;
+  d.innerHTML=`<h3>${h.title}</h3><p>${h.desc}</p><p class="why">${h.why}</p>`;
   hGrid.appendChild(d);
-});
-
-// RESOURCES
-const RES=[
-  {icon:'💙',title:'Sleep Health Foundation',desc:'Australia\'s leading sleep health organisation — fact sheets, research summaries, and adolescent sleep guidance.',url:'https://www.sleephealthfoundation.org.au'},
-  {icon:'🧠',title:'Black Dog Institute',desc:'Resources on the relationship between sleep and adolescent mental health, from Australia\'s leading mental health research institute.',url:'https://www.blackdoginstitute.org.au'},
-  {icon:'🔬',title:'Murdoch Children\'s Research Institute',desc:'Research on sleep in Australian children and teenagers, including the 1 in 3 statistic cited in this toolkit.',url:'https://www.mcri.edu.au'},
-  {icon:'📄',title:'National Library of Medicine (2023)',desc:'"Sleep Deprivation and Insomnia in Adolescence: Implications for Mental Health" — the key peer-reviewed paper behind this project.',url:'https://pubmed.ncbi.nlm.nih.gov'},
-  {icon:'⚕️',title:'American Academy of Sleep Medicine',desc:'Clinical guidelines on recommended sleep duration for teenagers, used to set the 8–10 hour benchmark in this toolkit.',url:'https://aasm.org'},
-];
-const resList=document.getElementById('res-list');
-RES.forEach(r=>{
-  const d=document.createElement('a');d.className='rlink';d.href=r.url;d.target='_blank';d.rel='noopener';
-  d.innerHTML=`<span class="rlink-icon">${r.icon}</span><div><h3>${r.title}</h3><p>${r.desc}</p></div><span class="rlink-arr">→</span>`;
-  resList.appendChild(d);
 });
 
 // GAME
 const DISTRACTORS=[
-  {emoji:'📱',label:'Phone buzz',dmg:1},
-  {emoji:'☕',label:'Caffeine',dmg:1},
-  {emoji:'💡',label:'Light on',dmg:1},
-  {emoji:'🔊',label:'Noise',dmg:1},
-  {emoji:'🎮',label:'Game alert',dmg:2},
-  {emoji:'📧',label:'Email ping',dmg:1},
-  {emoji:'🍕',label:'Late night snack',dmg:1},
+  {label:'Phone buzz',dmg:1},
+  {label:'Caffeine',dmg:1},
+  {label:'Light on',dmg:1},
+  {label:'Noise',dmg:1},
+  {label:'Game alert',dmg:2},
+  {label:'Email ping',dmg:1},
+  {label:'Late night snack',dmg:1},
 ];
 let gameRunning=false,gameTimer=null,spawnTimer=null;
 let gScore=0,gHealth=3,gTime=30;
@@ -861,7 +805,7 @@ function startGame(){
   document.getElementById('g-score').textContent='Score: 0';
   document.getElementById('g-timer').textContent='30';
   updateHearts();
-  document.getElementById('sleeper-status').textContent='💤 Sleeping well';
+  document.getElementById('sleeper-status').textContent='Sleeping well';
   document.getElementById('game-field').querySelectorAll('.distractor').forEach(e=>e.remove());
   gameRunning=true;
   gTime=30;
@@ -880,8 +824,7 @@ function spawnDistractor(){
   const d=DISTRACTORS[Math.floor(Math.random()*DISTRACTORS.length)];
   const el=document.createElement('div');
   el.className='distractor';
-  el.textContent=d.emoji;
-  el.title=d.label;
+  el.textContent=d.label;
   const side=Math.floor(Math.random()*4);
   let x,y,tx,ty;
   const fw=field.offsetWidth||300,fh=field.offsetHeight||300;
@@ -910,16 +853,16 @@ function spawnDistractor(){
       el.remove();
       gHealth=Math.max(0,gHealth-d.dmg);
       updateHearts();
-      document.getElementById('sleeper-status').textContent=gHealth>1?'😴 Getting disturbed...':'😩 Almost awake!';
+      document.getElementById('sleeper-status').textContent=gHealth>1?'Getting disturbed...':'Almost awake!';
       if(gHealth<=0)endGame();
     }
   },3100);
 }
 
 function updateHearts(){
-  const hearts=['❤️','❤️','❤️'];
-  for(let i=gHealth;i<3;i++)hearts[i]='🖤';
-  document.getElementById('g-health').innerHTML=hearts.map((h,i)=>`<span class="heart${i>=gHealth?' lost':''}">${h}</span>`).join('');
+  let html='';
+  for(let i=0;i<3;i++)html+=`<span class="heart${i>=gHealth?' lost':''}"></span>`;
+  document.getElementById('g-health').innerHTML=html;
 }
 
 function endGame(){
