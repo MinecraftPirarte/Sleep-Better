@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sleep Better, Learn Better — CGS Community Project 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0E1A33;--navy-mid:#16264A;--navy-light:#1E3560;
+  --purple:#A9A6E0;--purple-light:#C5B8E8;--purple-pale:#EEEDFE;
+  --gold:#F6C97A;--gold-dark:#E8A85C;
+  --white:#FFFFFF;--paper:#F4F1EA;--text:#1A1A2E;
+  --muted:#6B7FA6;--border:rgba(169,166,224,0.25);
+  --success:#4CAF7D;--danger:#E05C5C;
+  --radius:10px;--radius-lg:16px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--text);min-height:100vh;font-size:15px}
+h1,h2,h3{font-family:'Playfair Display',serif}
+
+/* NAV */
+nav{background:var(--navy);padding:0;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,0.3)}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.brand{padding:14px 20px;color:var(--gold);font-family:'Playfair Display',serif;font-size:15px;white-space:nowrap;border-right:1px solid rgba(255,255,255,0.08);cursor:pointer;user-select:none;flex-shrink:0}
+.ntab{padding:14px 16px;color:rgba(255,255,255,0.55);font-size:13px;border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;display:flex;align-items:center;gap:6px}
+.ntab:hover{color:rgba(255,255,255,0.85)}
+.ntab.on{color:var(--purple-light);border-bottom-color:var(--purple-light)}
+.ntab .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);display:none}
+.ntab.on .dot{display:inline-block}
+
+/* PAGE */
+.page{display:none;max-width:960px;margin:0 auto;padding:2rem 1.25rem}
+.page.on{display:block}
+
+/* SHARED */
+.page-title{font-size:32px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.page-sub{font-size:15px;color:var(--muted);line-height:1.6;margin-bottom:2rem;max-width:600px}
+.card{background:var(--white);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid var(--border);margin-bottom:12px}
+.card h3{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.card p{font-size:13.5px;color:#555;line-height:1.6}
+.badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11.5px;font-weight:500}
+.badge-purple{background:var(--purple-pale);color:var(--navy-mid)}
+.badge-gold{background:rgba(246,201,122,0.2);color:#7A5C00}
+.badge-navy{background:var(--navy-mid);color:var(--purple-light)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.divider{height:1px;background:var(--border);margin:1.5rem 0}
+.cta{display:inline-block;padding:11px 22px;border-radius:var(--radius);background:var(--navy);color:var(--white);font-size:14px;font-weight:500;cursor:pointer;border:none;transition:all 0.2s}
+.cta:hover{background:var(--navy-mid);transform:translateY(-1px)}
+.cta.outline{background:transparent;border:1.5px solid var(--navy);color:var(--navy)}
+.cta.outline:hover{background:var(--navy);color:var(--white)}
+.cta.purple{background:var(--purple);color:var(--navy)}
+.cta.purple:hover{background:var(--purple-light)}
+
+/* HOME */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 60%,#2A3F6F 100%);border-radius:var(--radius-lg);padding:2.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30px;right:-30px;width:200px;height:200px;border-radius:50%;background:rgba(169,166,224,0.1)}
+.hero::after{content:'';position:absolute;bottom:-50px;right:100px;width:150px;height:150px;border-radius:50%;background:rgba(246,201,122,0.07)}
+.hero h1{font-size:36px;color:var(--white);margin-bottom:8px;position:relative;z-index:1}
+.hero h1 em{color:var(--purple-light);font-style:italic}
+.hero p{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.7;max-width:500px;position:relative;z-index:1;margin-bottom:1.25rem}
+.hero-credits{font-size:12px;color:rgba(255,255,255,0.4);position:relative;z-index:1}
+
+.feel-box{background:var(--white);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid var(--border)}
+.feel-box h3{font-size:17px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.feel-box .sub{font-size:13px;color:var(--muted);margin-bottom:1.25rem}
+.feel-display{background:var(--paper);border-radius:var(--radius);padding:1.25rem;margin-top:1rem;text-align:center;transition:all 0.3s}
+.feel-emoji{font-size:48px;margin-bottom:8px;display:block}
+.feel-label{font-size:18px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.feel-desc{font-size:13px;color:var(--muted);line-height:1.5}
+.feel-sub{font-size:11.5px;color:var(--danger);margin-top:6px;font-style:italic}
+.hrs-row{display:flex;align-items:center;gap:12px}
+.hrs-row input[type=range]{flex:1;accent-color:var(--navy)}
+.hrs-val{font-size:24px;font-weight:600;color:var(--navy);min-width:60px;text-align:center;background:var(--purple-pale);border-radius:var(--radius);padding:4px 8px}
+
+.fact-box{background:var(--navy);border-radius:var(--radius-lg);padding:1.5rem;color:var(--white);position:relative;overflow:hidden}
+.fact-box::before{content:'"';font-family:'Playfair Display',serif;font-size:120px;color:rgba(255,255,255,0.05);position:absolute;top:-20px;left:10px;line-height:1}
+.fact-num{font-size:11px;letter-spacing:0.1em;color:var(--purple-light);text-transform:uppercase;margin-bottom:10px}
+.fact-text{font-size:15px;line-height:1.6;color:rgba(255,255,255,0.88);font-family:'Playfair Display',serif;font-style:italic;min-height:50px;transition:opacity 0.3s;position:relative;z-index:1}
+.fact-dots{display:flex;gap:5px;margin-top:12px}
+.fact-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:background 0.2s}
+.fact-dot.on{background:var(--purple-light)}
+
+.stat-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:1.5rem}
+.stat-item{background:var(--white);padding:1.25rem;text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:32px;color:var(--navy);margin-bottom:4px}
+.stat-label{font-size:12px;color:var(--muted);line-height:1.4}
+
+.home-nav-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:1.5rem}
+.hnav{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;cursor:pointer;transition:all 0.2s;text-align:center}
+.hnav:hover{border-color:var(--purple);transform:translateY(-2px);box-shadow:0 4px 16px rgba(169,166,224,0.25)}
+.hnav .icon{font-size:28px;margin-bottom:8px;display:block}
+.hnav h3{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:3px}
+.hnav p{font-size:11.5px;color:var(--muted)}
+
+.owl-quiz{background:var(--purple-pale);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid rgba(169,166,224,0.3)}
+.owl-quiz h3{font-size:17px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.owl-quiz .sub{font-size:13px;color:var(--muted);margin-bottom:1rem}
+.owl-options{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.owl-btn{padding:8px 16px;border-radius:var(--radius);border:1.5px solid var(--purple);background:transparent;color:var(--navy-mid);font-size:13px;cursor:pointer;transition:all 0.2s}
+.owl-btn:hover,.owl-btn.on{background:var(--navy-mid);color:var(--white);border-color:var(--navy-mid)}
+.owl-result{background:var(--white);border-radius:var(--radius);padding:1rem;margin-top:10px;display:none}
+.owl-result.on{display:block}
+.owl-type{font-size:18px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.owl-desc{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* SCIENCE */
+.stage-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.stage-btn{padding:9px 16px;border-radius:var(--radius);border:1.5px solid var(--border);background:var(--white);color:var(--navy);font-size:13px;cursor:pointer;transition:all 0.2s}
+.stage-btn:hover{border-color:var(--purple)}
+.stage-btn.on{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.stage-card{background:var(--white);border-radius:var(--radius-lg);padding:1.5rem;border-left:4px solid var(--purple);border-top:1px solid var(--border);border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stage-card h3{font-size:20px;color:var(--navy);margin-bottom:6px}
+.stage-card .badge{margin-bottom:10px}
+.stage-card p{font-size:14px;color:#555;line-height:1.7;margin-bottom:8px}
+.stage-card .note{font-size:13px;color:var(--muted);font-style:italic}
+
+.cycle-wrap{background:var(--navy);border-radius:var(--radius-lg);padding:1.5rem;overflow-x:auto}
+.cycle-title{font-size:12px;color:var(--purple-light);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px}
+.cycle-row{display:flex;align-items:center;gap:4px;min-width:600px}
+.cblk{border-radius:6px;height:44px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0}
+.carrow{color:rgba(255,255,255,0.25);font-size:11px;flex-shrink:0}
+.cycle-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}
+.cleg{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,0.6)}
+.cleg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+.hrs-science{background:var(--purple-pale);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid rgba(169,166,224,0.3)}
+.hrs-science h3{font-size:17px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.cycles-display{display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap}
+.cycle-pill{background:var(--navy);color:var(--white);border-radius:99px;padding:5px 14px;font-size:12px;transition:all 0.3s}
+.cycle-pill.dim{background:var(--border);color:var(--muted)}
+.cycle-pill.rem{background:var(--purple);color:var(--navy);font-weight:500}
+
+/* ASSESSMENT */
+.assess-q{margin-bottom:1.75rem}
+.q-label{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:10px;display:block}
+.sl-row{display:flex;align-items:center;gap:14px}
+.sl-row input[type=range]{flex:1;accent-color:var(--navy)}
+.slval{min-width:80px;text-align:center;font-size:14px;font-weight:600;color:var(--navy-mid);background:var(--purple-pale);border-radius:var(--radius);padding:5px 10px}
+.opts{display:flex;gap:7px;flex-wrap:wrap}
+.obtn{padding:8px 16px;border-radius:var(--radius);border:1.5px solid var(--border);background:var(--white);color:var(--muted);font-size:13.5px;cursor:pointer;transition:all 0.2s}
+.obtn:hover{border-color:var(--purple);color:var(--navy)}
+.obtn.on{background:var(--navy);color:var(--white);border-color:var(--navy)}
+
+.score-reveal{background:var(--navy);border-radius:var(--radius-lg);padding:1.75rem;display:none;margin-top:1.25rem}
+.score-reveal.on{display:block}
+.score-big{font-family:'Playfair Display',serif;font-size:56px;color:var(--white);line-height:1}
+.score-label{font-size:18px;font-weight:600;color:var(--purple-light);margin:8px 0 6px}
+.score-desc{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:1rem}
+.score-bar-t{height:8px;background:rgba(255,255,255,0.1);border-radius:6px;overflow:hidden;margin-bottom:1rem}
+.score-bar-f{height:100%;border-radius:6px;background:var(--purple-light);transition:width 0.8s cubic-bezier(0.16,1,0.3,1)}
+.tips-inline{margin-top:1.5rem}
+.tip-pill{background:rgba(255,255,255,0.08);border-radius:var(--radius);padding:1rem;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+.tip-pill span{font-size:20px;flex-shrink:0}
+.tip-pill-text h4{font-size:14px;font-weight:600;color:var(--white);margin-bottom:3px}
+.tip-pill-text p{font-size:12.5px;color:rgba(255,255,255,0.65);line-height:1.5}
+
+/* MYTHS */
+.myth-score-bar{background:var(--navy);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:16px}
+.mscore-big{font-family:'Playfair Display',serif;font-size:36px;color:var(--white)}
+.mscore-sub{font-size:13px;color:var(--purple-light)}
+.myth-progress{flex:1;height:6px;background:rgba(255,255,255,0.15);border-radius:6px;overflow:hidden}
+.myth-prog-fill{height:100%;background:var(--purple-light);border-radius:6px;transition:width 0.4s}
+
+.myth-card{background:var(--white);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;border:1px solid var(--border);margin-bottom:10px}
+.myth-q{font-size:14.5px;font-weight:500;color:var(--navy);margin-bottom:10px;line-height:1.5}
+.myth-btns{display:flex;gap:8px;margin-bottom:8px}
+.mbtn{padding:8px 18px;border-radius:var(--radius);border:1.5px solid var(--border);font-size:13px;cursor:pointer;background:var(--white);color:var(--muted);transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.mbtn:hover{border-color:var(--navy);color:var(--navy)}
+.mbtn.correct{background:rgba(76,175,125,0.12);color:#2D7A56;border-color:#4CAF7D}
+.mbtn.wrong{background:rgba(224,92,92,0.1);color:#A33030;border-color:var(--danger)}
+.myth-reveal{display:none;padding-top:10px;border-top:1px solid var(--border);font-size:13px;color:#555;line-height:1.6}
+.myth-reveal.on{display:block}
+.mresult{font-weight:600;margin-bottom:4px;font-size:14px}
+.mresult.right{color:var(--success)}.mresult.wrong{color:var(--danger)}
+.myth-cat{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+
+/* HYGIENE */
+.hyg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.hyg-card{background:var(--white);border-radius:var(--radius-lg);padding:1.25rem;border:1px solid var(--border);border-top:3px solid var(--purple)}
+.hyg-icon{font-size:26px;margin-bottom:10px}
+.hyg-card h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.hyg-card p{font-size:13px;color:#666;line-height:1.55}
+.hyg-card .why{font-size:12px;color:var(--muted);font-style:italic;margin-top:7px;padding-top:7px;border-top:1px solid var(--border)}
+
+/* GAME */
+#game-page{background:var(--navy)}
+#game-page .page-title{color:var(--white)}
+#game-page .page-sub{color:rgba(255,255,255,0.6)}
+.game-area{background:var(--navy-mid);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid rgba(255,255,255,0.1);position:relative;overflow:hidden;min-height:400px;user-select:none}
+.game-hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.g-score{font-family:'Playfair Display',serif;font-size:28px;color:var(--white)}
+.g-timer{font-size:20px;font-weight:600;color:var(--gold)}
+.g-health{display:flex;gap:4px}
+.heart{font-size:18px;transition:filter 0.2s}
+.heart.lost{filter:grayscale(1);opacity:0.3}
+.game-field{position:relative;height:300px;background:rgba(0,0,0,0.2);border-radius:var(--radius);overflow:hidden}
+.sleeper{position:absolute;bottom:50%;left:50%;transform:translate(-50%,50%);text-align:center;pointer-events:none;z-index:2}
+.bed-icon{font-size:64px;line-height:1;display:block}
+.sleeper-status{font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px}
+.distractor{position:absolute;font-size:32px;cursor:pointer;z-index:3;transition:transform 0.1s;user-select:none}
+.distractor:hover{transform:scale(1.1)}
+.distractor:active{transform:scale(0.9)}
+.game-msg{text-align:center;padding:2rem;color:var(--white)}
+.game-msg h2{font-size:28px;margin-bottom:8px}
+.game-msg p{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:1.25rem}
+.game-msg .score-final{font-size:48px;color:var(--gold);font-family:'Playfair Display',serif;margin:8px 0}
+.game-instructions{font-size:13px;color:rgba(255,255,255,0.5);text-align:center;margin-top:8px;line-height:1.6}
+.combo-pop{position:fixed;pointer-events:none;font-size:20px;font-weight:700;color:var(--gold);animation:popUp 0.8s forwards;z-index:999}
+@keyframes popUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-50px) scale(1.4)}}
+
+/* RESOURCES */
+.rlink{display:flex;align-items:center;gap:14px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:10px;cursor:pointer;transition:all 0.2s;text-decoration:none;color:inherit}
+.rlink:hover{border-color:var(--purple);transform:translateX(3px)}
+.rlink-icon{font-size:28px;flex-shrink:0}
+.rlink h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:3px}
+.rlink p{font-size:12.5px;color:var(--muted)}
+.rlink-arr{margin-left:auto;color:var(--muted);font-size:18px}
+
+
+
+/* FOOTER */
+footer{background:var(--navy);padding:1.5rem;text-align:center;margin-top:2rem}
+footer p{font-size:12px;color:rgba(255,255,255,0.3)}
+#secret-trigger{cursor:pointer;font-size:18px;margin-left:6px}
+
+/* UTIL */
+.hidden{display:none!important}
+.mt1{margin-top:1rem}
+.mt2{margin-top:1.5rem}
+.pulse{animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+
+/* TOOLTIP */
+.tooltip-wrap{position:relative;display:inline-block}
+.tooltip{position:absolute;bottom:calc(100%+6px);left:50%;transform:translateX(-50%);background:var(--navy);color:var(--white);font-size:12px;padding:6px 10px;border-radius:var(--radius);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity 0.2s;z-index:50}
+.tooltip-wrap:hover .tooltip{opacity:1}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand" id="brand-logo">🌙 Sleep Better</div>
+    <button class="ntab on" onclick="goPage('home')"><span class="dot"></span>Home</button>
+    <button class="ntab" onclick="goPage('science')"><span class="dot"></span>Sleep science</button>
+    <button class="ntab" onclick="goPage('assess')"><span class="dot"></span>Self-assessment</button>
+    <button class="ntab" onclick="goPage('myths')"><span class="dot"></span>Myth busters</button>
+    <button class="ntab" onclick="goPage('hygiene')"><span class="dot"></span>Hygiene guide</button>
+    <button class="ntab" onclick="goPage('resources')"><span class="dot"></span>Resources</button>
+
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page on" id="page-home">
+  <div class="hero">
+    <h1>Sleep Better,<br><em>Learn Better.</em></h1>
+    <p>A sleep literacy toolkit for CGS students. Find out what sleep does to your brain, where your habits stand, and what actually helps.</p>
+    <div class="hero-credits">CGS Community Project 2026 &mdash; Neel Gosar, Alex Webb &amp; Finn Cavanagh</div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-item">
+      <div class="stat-num">1 in 3</div>
+      <div class="stat-label">Australian children have trouble sleeping</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8&ndash;10</div>
+      <div class="stat-label">hours of sleep recommended for teens aged 13&ndash;18</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">40%</div>
+      <div class="stat-label">of teens report feeling tired most school days</div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:1.25rem">
+    <div class="feel-box">
+      <h3>How would you feel with...</h3>
+      <div class="sub">Drag the slider to see the effects of different amounts of sleep.</div>
+      <div class="hrs-row">
+        <input type="range" min="4" max="10" step="0.5" value="8" id="feel-slider">
+        <div class="hrs-val" id="feel-hrs">8 hrs</div>
+      </div>
+      <div class="feel-display" id="feel-display">
+        <span class="feel-emoji" id="feel-emoji">😊</span>
+        <div class="feel-label" id="feel-label">Well-rested</div>
+        <div class="feel-desc" id="feel-desc">Within the recommended range. Memory consolidation and executive function are working properly.</div>
+        <div class="feel-sub hidden" id="feel-sub"></div>
+      </div>
+    </div>
+
+    <div class="fact-box">
+      <div class="fact-num" id="fact-num">Fact 1 of 8</div>
+      <div class="fact-text" id="fact-text"></div>
+      <div class="fact-dots" id="fact-dots"></div>
+    </div>
+  </div>
+
+  <div class="owl-quiz" style="margin-bottom:1.25rem">
+    <h3>Are you a night owl or an early bird?</h3>
+    <div class="sub">Answer three quick questions to find out your natural sleep type.</div>
+    <div id="owl-step-0">
+      <p style="font-size:14px;font-weight:500;color:var(--navy);margin-bottom:8px">On a weekend with nothing on, what time do you naturally wake up?</p>
+      <div class="owl-options">
+        <button class="owl-btn" onclick="owlAnswer(0,0)">Before 7am</button>
+        <button class="owl-btn" onclick="owlAnswer(0,1)">7am&ndash;9am</button>
+        <button class="owl-btn" onclick="owlAnswer(0,2)">After 9am</button>
+      </div>
+    </div>
+    <div id="owl-step-1" class="hidden">
+      <p style="font-size:14px;font-weight:500;color:var(--navy);margin-bottom:8px">When do you feel most mentally sharp?</p>
+      <div class="owl-options">
+        <button class="owl-btn" onclick="owlAnswer(1,0)">Morning</button>
+        <button class="owl-btn" onclick="owlAnswer(1,1)">Afternoon</button>
+        <button class="owl-btn" onclick="owlAnswer(1,2)">Late evening</button>
+      </div>
+    </div>
+    <div id="owl-step-2" class="hidden">
+      <p style="font-size:14px;font-weight:500;color:var(--navy);margin-bottom:8px">How do you feel in the first 30 minutes after waking?</p>
+      <div class="owl-options">
+        <button class="owl-btn" onclick="owlAnswer(2,0)">Alert and ready</button>
+        <button class="owl-btn" onclick="owlAnswer(2,1)">Takes a while</button>
+        <button class="owl-btn" onclick="owlAnswer(2,2)">Completely zombied</button>
+      </div>
+    </div>
+    <div class="owl-result" id="owl-result">
+      <div class="owl-type" id="owl-type"></div>
+      <div class="owl-desc" id="owl-desc"></div>
+    </div>
+  </div>
+
+  <div class="home-nav-grid">
+    <div class="hnav" onclick="goPage('science')">
+      <span class="icon">🧠</span>
+      <h3>Sleep science</h3>
+      <p>How your brain cycles through the night</p>
+    </div>
+    <div class="hnav" onclick="goPage('assess')">
+      <span class="icon">📋</span>
+      <h3>Self-assessment</h3>
+      <p>Get your personal sleep score</p>
+    </div>
+    <div class="hnav" onclick="goPage('myths')">
+      <span class="icon">❓</span>
+      <h3>Myth busters</h3>
+      <p>16 sleep myths: true or false?</p>
+    </div>
+    <div class="hnav" onclick="goPage('hygiene')">
+      <span class="icon">🌙</span>
+      <h3>Hygiene guide</h3>
+      <p>The habits with real evidence</p>
+    </div>
+    <div class="hnav" onclick="goPage('resources')">
+      <span class="icon">🔗</span>
+      <h3>Resources</h3>
+      <p>Further reading from trusted sources</p>
+    </div>
+  </div>
+</div>
+
+<!-- SCIENCE -->
+<div class="page" id="page-science">
+  <div class="page-title">How sleep works</div>
+  <p class="page-sub">Your brain cycles through four distinct stages roughly every 90 minutes. Each one does something different. Click each stage to explore it.</p>
+
+  <div class="stage-nav" id="stage-nav"></div>
+  <div class="stage-card" id="stage-card"></div>
+
+  <div class="divider"></div>
+
+  <div class="cycle-wrap">
+    <div class="cycle-title">A typical 8-hour night (5 cycles, 90 minutes each)</div>
+    <div class="cycle-row" id="cycle-row"></div>
+    <div class="cycle-legend">
+      <div class="cleg"><div class="cleg-dot" style="background:#B5D4F4"></div>Stage 1 (light)</div>
+      <div class="cleg"><div class="cleg-dot" style="background:#A9A6E0"></div>Stage 2 (light)</div>
+      <div class="cleg"><div class="cleg-dot" style="background:#534AB7"></div>Stage 3 (deep)</div>
+      <div class="cleg"><div class="cleg-dot" style="background:#F6C97A"></div>REM</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="hrs-science">
+    <h3>If I sleep for... how many REM cycles do I get?</h3>
+    <p style="font-size:13px;color:var(--muted);margin-top:4px;margin-bottom:1rem">REM sleep — where memory and learning consolidation happens — increases with each cycle. Use the slider to see what you're getting.</p>
+    <div class="hrs-row">
+      <input type="range" min="4" max="10" step="0.5" value="8" id="rem-slider" oninput="updateRemCycles(this.value)">
+      <div class="hrs-val" id="rem-hrs">8 hrs</div>
+    </div>
+    <div class="cycles-display" id="rem-display"></div>
+    <p style="font-size:12.5px;color:var(--muted);margin-top:10px" id="rem-note"></p>
+  </div>
+
+  <div class="divider"></div>
+  <div class="card">
+    <h3>Why cutting sleep short is worse than it seems</h3>
+    <p>When you cut a night short by 1–2 hours, you mostly lose sleep from the <strong>end</strong> of the night — which contains the most REM. A 6-hour night doesn't give you 75% of an 8-hour night's benefit. It may give you less than 50% of the REM sleep, which is the stage most directly tied to academic performance, emotional regulation, and memory.</p>
+  </div>
+</div>
+
+<!-- ASSESSMENT -->
+<div class="page" id="page-assess">
+  <div class="page-title">How are you sleeping?</div>
+  <p class="page-sub">Answer five questions to get your personalised sleep score and a set of tips built around your specific answers.</p>
+  <div id="assess-container"></div>
+  <button class="cta" onclick="calcScore()" style="margin-top:0.5rem">Get my sleep score →</button>
+  <div class="score-reveal" id="score-reveal">
+    <div class="score-big" id="score-num">0</div>
+    <div class="score-label" id="score-label"></div>
+    <div class="score-bar-t"><div class="score-bar-f" id="score-bar" style="width:0%"></div></div>
+    <div class="score-desc" id="score-desc"></div>
+    <div class="tips-inline" id="tips-inline"></div>
+    <button class="cta purple" onclick="goPage('myths')" style="margin-top:1rem">Next: try the myth busters →</button>
+  </div>
+</div>
+
+<!-- MYTHS -->
+<div class="page" id="page-myths">
+  <div class="page-title">Sleep myth busters</div>
+  <p class="page-sub">16 statements about sleep — pick true or false and see how many you get right.</p>
+  <div class="myth-score-bar">
+    <div>
+      <div class="mscore-big" id="mscore">0 / 16</div>
+      <div class="mscore-sub" id="mscore-sub">Get started — answer your first question</div>
+    </div>
+    <div class="myth-progress"><div class="myth-prog-fill" id="mprog" style="width:0%"></div></div>
+  </div>
+  <div id="myth-list"></div>
+</div>
+
+<!-- HYGIENE -->
+<div class="page" id="page-hygiene">
+  <div class="page-title">Sleep hygiene guide</div>
+  <p class="page-sub">Sleep hygiene refers to the habits that consistently improve how quickly you fall asleep and how well you stay asleep. These are the ones with the strongest scientific evidence.</p>
+  <div class="hyg-grid" id="hyg-grid"></div>
+</div>
+
+<!-- RESOURCES -->
+<div class="page" id="page-resources">
+  <div class="page-title">Further resources</div>
+  <p class="page-sub">The organisations and publications that informed this toolkit. All links open their websites.</p>
+  <div id="res-list"></div>
+  <div class="divider"></div>
+  <div class="card">
+    <h3>Sources used in this toolkit</h3>
+    <p>Murdoch Children's Research Institute — Sleep in children and adolescents (2024). National Library of Medicine — "Sleep Deprivation and Insomnia in Adolescence: Implications for Mental Health" (March 2023). Sleep Health Foundation — Adolescent Sleep Health Fact Sheet. Black Dog Institute — Sleep and mental health in young people. American Academy of Sleep Medicine — Recommended sleep duration for children and adolescents.</p>
+  </div>
+</div>
+
+
+
+<!-- GAME (hidden) -->
+<div class="page" id="page-game" style="background:var(--navy);min-height:100vh">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.5rem">
+    <div class="page-title" style="color:var(--white);margin-bottom:0">Sleep Defender</div>
+    <span class="badge badge-navy" style="font-size:11px">hidden minigame</span>
+  </div>
+  <p class="page-sub">Tap the distractions before they reach the sleeper. Keep your sleep quality high for 30 seconds.</p>
+  <div class="game-area" id="game-area">
+    <div id="game-screen-start" class="game-msg">
+      <div style="font-size:64px;margin-bottom:12px">🛏️</div>
+      <h2 style="color:var(--white);margin-bottom:8px">Sleep Defender</h2>
+      <p>Tap phones, coffee, lights, and noise before they reach the sleeper. Each one that gets through costs you a heart. You have 30 seconds.</p>
+      <button class="cta purple" onclick="startGame()">Start game</button>
+    </div>
+    <div id="game-screen-play" class="hidden">
+      <div class="game-hud">
+        <div class="g-score" id="g-score">Score: 0</div>
+        <div class="g-timer" id="g-timer">30</div>
+        <div class="g-health" id="g-health">❤️❤️❤️</div>
+      </div>
+      <div class="game-field" id="game-field">
+        <div class="sleeper" id="sleeper">
+          <span class="bed-icon">🛏️</span>
+          <div class="sleeper-status" id="sleeper-status">💤 Sleeping well</div>
+        </div>
+      </div>
+      <div class="game-instructions">Tap the distractions to stop them reaching the sleeper!</div>
+    </div>
+    <div id="game-screen-end" class="hidden game-msg">
+      <div class="score-final" id="g-final-score">0</div>
+      <h2 style="color:var(--white)">Game over</h2>
+      <p id="g-end-msg"></p>
+      <button class="cta purple" onclick="startGame()" style="margin-right:8px">Play again</button>
+      <button class="cta outline" onclick="goPage('home')" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7)">Back to toolkit</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Sleep Better, Learn Better &mdash; CGS Year 9 Community Project 2026 <span id="secret-trigger" title="...">🌙</span></p>
+</footer>
+
+<script>
+const PAGES=['home','science','assess','myths','hygiene','resources','game'];
+
+function goPage(id){
+  PAGES.forEach(p=>{
+    document.getElementById('page-'+p).classList.toggle('on',p===id);
+  });
+  document.querySelectorAll('.ntab').forEach((t,i)=>{
+    t.classList.toggle('on',t.getAttribute('onclick')==="goPage('"+id+"')");
+  });
+  window.scrollTo(0,0);
+  if(id==='assess')buildAssess();
+}
+
+// SECRET TRIGGER
+let secretClicks=0;
+document.getElementById('secret-trigger').onclick=()=>{
+  secretClicks++;
+  if(secretClicks>=5){
+    secretClicks=0;
+    goPage('game');
+    showGameStart();
+  }
+};
+document.getElementById('brand-logo').onclick=()=>{
+  secretClicks++;
+  if(secretClicks>=5){secretClicks=0;goPage('game');showGameStart();}
+};
+
+// FEEL SLIDER
+const FEEL=[
+  {hrs:4,emoji:'😵',label:'Severely impaired',desc:'Reaction time equivalent to being legally drunk. Memory, focus, and emotional control are all critically affected.',sub:'⚠️ This is associated with increased risk of accidents and mental health issues.'},
+  {hrs:5,emoji:'😩',label:'Significantly impaired',desc:'Mood, memory and cognitive speed are all substantially reduced. The cumulative sleep debt will build up across the week.',sub:'⚠️ Most teens functioning on this amount think they feel fine — but tests show they are not.'},
+  {hrs:6,emoji:'😴',label:'Below recommended',desc:'Performing noticeably below your cognitive peak. Irritability, slower reaction time, and reduced working memory are all likely.',sub:'⚠️ Regularly sleeping 6 hours is associated with lower academic outcomes.'},
+  {hrs:7,emoji:'😐',label:'Slightly short',desc:'Getting closer to the recommended range. Still slightly under for most teens — you may feel okay but are not operating at full capacity.',sub:''},
+  {hrs:8,emoji:'😊',label:'Well-rested',desc:'Within the recommended range for teens. Memory consolidation, executive function, and emotional regulation are all working properly.',sub:''},
+  {hrs:9,emoji:'🙂',label:'Optimal',desc:'Peak cognitive performance for most teenagers. REM sleep cycles are completing fully, which means learning from yesterday is being properly locked in.',sub:''},
+  {hrs:10,emoji:'😁',label:'Excellent',desc:'At the top of the recommended range. Full restorative function — your brain and body are getting everything they need.',sub:''},
+];
+const feelSlider=document.getElementById('feel-slider');
+const feelHrs=document.getElementById('feel-hrs');
+feelSlider.oninput=()=>{
+  const v=parseFloat(feelSlider.value);
+  feelHrs.textContent=v+' hrs';
+  const idx=Math.min(Math.floor((v-4)/1),FEEL.length-1);
+  const f=FEEL[Math.max(0,idx)];
+  document.getElementById('feel-emoji').textContent=f.emoji;
+  document.getElementById('feel-label').textContent=f.label;
+  document.getElementById('feel-desc').textContent=f.desc;
+  const sub=document.getElementById('feel-sub');
+  if(f.sub){sub.textContent=f.sub;sub.classList.remove('hidden');}
+  else sub.classList.add('hidden');
+  document.getElementById('feel-display').style.borderLeft=v<7?'3px solid #E05C5C':v<8?'3px solid #F6C97A':'3px solid #4CAF7D';
+};
+feelSlider.oninput();
+
+// FACTS
+const FACTS=[
+  'During REM sleep, the hippocampus replays the day\'s events and transfers them to long-term memory — essentially "saving" what you learned.',
+  'Teenagers have a biological shift in their circadian rhythm that makes it hard to fall asleep before 11pm. This is a real physiological change, not laziness.',
+  'After 17 hours awake, cognitive impairment is equivalent to a blood alcohol level of 0.05 — the legal driving limit.',
+  'Sleep clears waste products from the brain including amyloid beta — a protein linked to Alzheimer\'s disease. This "cleaning" only happens during sleep.',
+  'Students who sleep 8+ hours before an exam perform, on average, 40% better than those who pull all-nighters.',
+  'Blue light from phones suppresses melatonin production for up to 90 minutes after you stop looking at the screen.',
+  'Deep sleep (Stage 3) releases 70-80% of daily human growth hormone. This is why children and teenagers need more sleep than adults.',
+  'Your body can\'t store sleep like a battery — so the only way to get the cognitive benefits is to actually sleep the hours.',
+];
+let factIdx=0;
+function showFact(i){
+  factIdx=i;
+  document.getElementById('fact-text').style.opacity='0';
+  setTimeout(()=>{
+    document.getElementById('fact-text').textContent=FACTS[i];
+    document.getElementById('fact-num').textContent='Fact '+(i+1)+' of '+FACTS.length;
+    document.getElementById('fact-text').style.opacity='1';
+    document.querySelectorAll('.fact-dot').forEach((d,j)=>d.classList.toggle('on',j===i));
+  },200);
+}
+const dotsEl=document.getElementById('fact-dots');
+FACTS.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='fact-dot'+(i===0?' on':'');
+  d.onclick=()=>showFact(i);
+  dotsEl.appendChild(d);
+});
+showFact(0);
+setInterval(()=>showFact((factIdx+1)%FACTS.length),4500);
+
+// OWL QUIZ
+let owlAnswers=[];
+function owlAnswer(step,val){
+  owlAnswers[step]=val;
+  document.getElementById('owl-step-'+step).classList.add('hidden');
+  if(step<2){
+    document.getElementById('owl-step-'+(step+1)).classList.remove('hidden');
+  } else {
+    const sum=owlAnswers.reduce((a,b)=>a+b,0);
+    const res=document.getElementById('owl-result');
+    res.classList.add('on');
+    let type,desc;
+    if(sum<=2){type='🌅 Early bird';desc='You\'re naturally aligned with morning light. Your body clock is set earlier than average — which actually puts you in a good position for school schedules. Your peak cognitive window is in the morning, so use it for your hardest subjects.';}
+    else if(sum<=4){type='🕊️ Intermediate';desc='You sit between the extremes — you can adapt reasonably well to both early and late schedules. Most people are in this category. Consistency in your sleep and wake times matters most for you.';}
+    else{type='🦉 Night owl';desc='Your circadian rhythm is shifted later than average, which is common in teenagers. You feel most alert in the evening — but school starts early, so building a consistent wind-down routine is especially important for you.';}
+    document.getElementById('owl-type').textContent=type;
+    document.getElementById('owl-desc').textContent=desc;
+  }
+}
+
+// SCIENCE PAGE
+const STAGES=[
+  {label:'Stage 1',full:'Stage 1 — light sleep',badge:'5–10 minutes',col:'#B5D4F4',tc:'#0C447C',desc:'The transition from wakefulness to sleep. Your muscles relax, breathing slows, and your heart rate drops. This stage is brief and you can be easily woken from it. It acts as a gateway into deeper sleep.',note:'Accounts for roughly 5% of total sleep time. You return briefly to Stage 1 between each full cycle.'},
+  {label:'Stage 2',full:'Stage 2 — light sleep',badge:'~20 minutes',col:'#A9A6E0',tc:'#26215C',desc:'Your brain begins producing sleep spindles — short bursts of brain activity that play a key role in consolidating memories and blocking external stimuli so you stay asleep. Body temperature drops and awareness of surroundings fades.',note:'The most common stage — you spend about 50% of total sleep time here. Each cycle returns to Stage 2 between other stages.'},
+  {label:'Stage 3',full:'Stage 3 — deep sleep',badge:'20–40 minutes',col:'#534AB7',tc:'#EEEDFE',desc:'The most physically restorative stage of sleep. Your body repairs and rebuilds muscle tissue, strengthens the immune system, and releases growth hormone. It\'s the hardest stage to wake from — you\'ll feel groggy if woken here.',note:'Deep sleep is most abundant in the first half of the night. Cutting sleep short doesn\'t harm this stage as much as it harms REM, which is why you still feel physically ok after a short night.'},
+  {label:'REM',full:'REM sleep',badge:'10–60 minutes',col:'#F6C97A',tc:'#3D2600',desc:'Rapid Eye Movement sleep. Your brain is nearly as active as when you\'re awake. This is when today\'s learning is consolidated into long-term memory, emotions are processed, and creative connections are made between ideas.',note:'REM periods get longer with each cycle — the final cycles of a full night contain the most REM. Cutting sleep short removes these cycles entirely, directly harming learning, memory, and emotional regulation.'},
+];
+const stageNav=document.getElementById('stage-nav');
+const stageCard=document.getElementById('stage-card');
+function showStage(i){
+  const s=STAGES[i];
+  stageCard.innerHTML=`<h3 style="color:var(--navy);margin-bottom:6px">${s.full}</h3><span class="badge badge-purple">${s.badge}</span><p style="margin-top:12px">${s.desc}</p><p class="note" style="margin-top:8px">💡 ${s.note}</p>`;
+  stageCard.style.borderLeftColor=s.col;
+  stageNav.querySelectorAll('.stage-btn').forEach((b,j)=>b.classList.toggle('on',j===i));
+}
+STAGES.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.className='stage-btn'+(i===0?' on':'');
+  b.style.cssText=`border-left-color:${s.col};${i===0?'':''}`;
+  b.textContent=s.label;
+  b.onclick=()=>showStage(i);
+  stageNav.appendChild(b);
+});
+showStage(0);
+
+const CYCLE_BLOCKS=[
+  {l:'N1',bg:'#B5D4F4',tc:'#0C447C',w:'42px'},{l:'N2',bg:'#A9A6E0',tc:'#26215C',w:'62px'},{l:'N3',bg:'#534AB7',tc:'#EEEDFE',w:'72px'},{l:'REM',bg:'#F6C97A',tc:'#3D2600',w:'50px'},
+  {l:'N2',bg:'#A9A6E0',tc:'#26215C',w:'42px'},{l:'N3',bg:'#534AB7',tc:'#EEEDFE',w:'55px'},{l:'REM',bg:'#F6C97A',tc:'#3D2600',w:'70px'},
+  {l:'N2',bg:'#A9A6E0',tc:'#26215C',w:'35px'},{l:'REM',bg:'#F6C97A',tc:'#3D2600',w:'90px'},
+  {l:'N2',bg:'#A9A6E0',tc:'#26215C',w:'30px'},{l:'REM',bg:'#F6C97A',tc:'#3D2600',w:'110px'},
+];
+const cycleRow=document.getElementById('cycle-row');
+CYCLE_BLOCKS.forEach((b,i)=>{
+  const d=document.createElement('div');
+  d.className='cblk';d.style.cssText=`width:${b.w};background:${b.bg};color:${b.tc}`;d.textContent=b.l;
+  cycleRow.appendChild(d);
+  if(i<CYCLE_BLOCKS.length-1){const a=document.createElement('span');a.className='carrow';a.textContent='›';cycleRow.appendChild(a);}
+});
+
+function updateRemCycles(v){
+  v=parseFloat(v);
+  document.getElementById('rem-hrs').textContent=v+' hrs';
+  const fullCycles=Math.floor(v/1.5);
+  const remCycles=Math.max(0,fullCycles-1);
+  const display=document.getElementById('rem-display');
+  display.innerHTML='';
+  for(let i=0;i<Math.max(fullCycles,1);i++){
+    const p=document.createElement('div');
+    const isRem=i>=1;
+    p.className='cycle-pill'+(i>=fullCycles?' dim':'')+(isRem?' rem':'');
+    p.textContent=i===0?'Cycle 1 (little REM)':`Cycle ${i+1} ${isRem?'✓ REM':''}`;
+    display.appendChild(p);
+  }
+  let note='';
+  if(v<6)note=`⚠️ ${remCycles} meaningful REM cycle${remCycles!==1?'s':''} — significantly below what learning requires.`;
+  else if(v<8)note=`You're getting ${remCycles} REM cycle${remCycles!==1?'s':''}. Adequate but below optimal for learning consolidation.`;
+  else note=`${remCycles} full REM cycles — your brain is getting the consolidation it needs to lock in today's learning.`;
+  document.getElementById('rem-note').textContent=note;
+}
+updateRemCycles(8);
+
+// ASSESSMENT
+let aa={hours:8,screens:2,stress:2,bedtime:null,caffeine:null};
+let assessBuilt=false;
+function buildAssess(){
+  if(assessBuilt)return;assessBuilt=true;
+  const c=document.getElementById('assess-container');
+  const qs=[
+    {type:'sl',key:'hours',label:'On a typical school night, how many hours of sleep do you get?',min:4,max:10,step:0.5,val:8,fmt:v=>v+' hrs'},
+    {type:'sl',key:'screens',label:'In the 30 minutes before bed, how often are you on a screen (phone, laptop, TV)?',min:0,max:4,step:1,val:2,fmt:v=>['Never','Rarely','Sometimes','Often','Always'][v]},
+    {type:'sl',key:'stress',label:'How often does stress or overthinking keep you awake at night?',min:0,max:4,step:1,val:2,fmt:v=>['Never','Rarely','Sometimes','Often','Always'][v]},
+    {type:'op',key:'bedtime',label:'Do you go to bed at roughly the same time each night?',opts:['Always','Mostly','Rarely','Never']},
+    {type:'op',key:'caffeine',label:'Do you have caffeine (coffee, energy drinks, soft drink) after 3pm?',opts:['Never','Occasionally','Often','Daily']},
+  ];
+  qs.forEach(q=>{
+    const b=document.createElement('div');b.className='assess-q';
+    if(q.type==='sl'){
+      b.innerHTML=`<span class="q-label">${q.label}</span><div class="sl-row"><input type="range" min="${q.min}" max="${q.max}" step="${q.step}" value="${q.val}" id="sl-${q.key}"><span class="slval" id="sv-${q.key}">${q.fmt(q.val)}</span></div>`;
+      c.appendChild(b);
+      b.querySelector('input').oninput=e=>{aa[q.key]=parseFloat(e.target.value);document.getElementById('sv-'+q.key).textContent=q.fmt(parseFloat(e.target.value));};
+    } else {
+      b.innerHTML=`<span class="q-label">${q.label}</span><div class="opts" id="opts-${q.key}"></div>`;
+      c.appendChild(b);
+      const opts=b.querySelector('.opts');
+      q.opts.forEach(o=>{
+        const btn=document.createElement('button');btn.className='obtn';btn.textContent=o;
+        btn.onclick=()=>{opts.querySelectorAll('.obtn').forEach(x=>x.classList.remove('on'));btn.classList.add('on');aa[q.key]=o;};
+        opts.appendChild(btn);
+      });
+    }
+  });
+}
+
+const ALL_TIPS=[
+  {trigger:'screens',emoji:'📱',title:'Put the phone down 30 minutes earlier',desc:'Blue light suppresses melatonin for up to 90 minutes after you stop looking at the screen — even if you feel fine. Replace that time with music, reading a physical book, or light stretching.'},
+  {trigger:'stress',emoji:'✏️',title:'Try a 5-minute brain dump before bed',desc:'Write down everything on your mind — tasks, worries, tomorrow\'s to-do list. Getting it out of your head and onto paper reduces the mental activity that keeps you awake when you\'re trying to sleep.'},
+  {trigger:'bedtime',emoji:'🕙',title:'Pick a bedtime and protect it',desc:'Consistency is the most powerful sleep habit. Even a 30-minute earlier, fixed bedtime will measurably improve sleep quality within one week. Your body clock runs on routine.'},
+  {trigger:'caffeine',emoji:'☕',title:'Cut caffeine off at 3pm',desc:'With a half-life of 5–6 hours, an energy drink at 4pm still has half its caffeine active at 9pm. Switch to water, herbal tea, or a non-caffeinated drink after 3pm.'},
+  {trigger:'hours',emoji:'🌙',title:'Build a 10-minute wind-down routine',desc:'A short, repeated routine before bed — shower, journal, dim the lights — signals to your brain that sleep is coming. The predictability of the routine is what trains the response.'},
+  {trigger:'general',emoji:'🌡️',title:'Cool your room down',desc:'Your body needs to drop its core temperature to initiate sleep. A room around 18°C is optimal. Warm rooms delay sleep onset and increase night-time wake-ups.'},
+  {trigger:'general',emoji:'📚',title:'Study at your desk, not in bed',desc:'Your brain links where you are with what you do. Studying in bed weakens the mental association between bed and sleep, making it harder to switch off when you actually need to.'},
+  {trigger:'general',emoji:'🏃',title:'Exercise earlier in the day',desc:'Regular exercise dramatically improves sleep quality — but time it. Vigorous exercise within 2 hours of bedtime raises core temperature and adrenaline, delaying sleep onset.'},
+];
+
+function calcScore(){
+  let s=0;
+  const h=aa.hours;
+  s+=h>=9?30:h>=8?25:h>=7?15:h>=6?8:2;
+  s+=Math.round((1-aa.screens/4)*20);
+  s+=Math.round((1-aa.stress/4)*20);
+  const bm={Always:15,Mostly:10,Rarely:4,Never:0};s+=(bm[aa.bedtime]??5);
+  const cm={Never:15,Occasionally:10,Often:4,Daily:0};s+=(cm[aa.caffeine]??7);
+  s=Math.min(100,Math.max(0,Math.round(s)));
+  document.getElementById('score-num').textContent=s;
+  setTimeout(()=>document.getElementById('score-bar').style.width=s+'%',100);
+  const lvl=s>=80?['Good sleeper','Your habits are solid. Protect your consistency and focus on maintaining what you\'re doing — especially around exam periods when sleep is most tempting to cut short.']:
+    s>=60?['Room to improve','You have some good habits, but there are clear areas where small changes could make a noticeable difference to how you feel, focus, and learn.']:
+    s>=40?['Sleep is being affected','Your current habits are likely affecting your focus, mood, and memory more than you realise. The tips below are tailored to your specific answers.']:
+    ['Sleep health needs attention','Your sleep is significantly compromised. This is affecting your cognitive performance and wellbeing. Even one or two of the habit changes below could make a real difference.'];
+  document.getElementById('score-label').textContent=lvl[0];
+  document.getElementById('score-desc').textContent=lvl[1];
+
+  const priority=[];
+  if(aa.screens>=2)priority.push(ALL_TIPS[0]);
+  if(aa.stress>=2)priority.push(ALL_TIPS[1]);
+  if(!aa.bedtime||aa.bedtime==='Rarely'||aa.bedtime==='Never')priority.push(ALL_TIPS[2]);
+  if(aa.caffeine==='Often'||aa.caffeine==='Daily')priority.push(ALL_TIPS[3]);
+  if(aa.hours<7)priority.push(ALL_TIPS[4]);
+  ALL_TIPS.filter(t=>!priority.includes(t)).forEach(t=>priority.push(t));
+  const tips=priority.slice(0,5);
+  const tl=document.getElementById('tips-inline');
+  tl.innerHTML='<p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.06em">Your personalised tips</p>';
+  tips.forEach(t=>{
+    const d=document.createElement('div');d.className='tip-pill';
+    d.innerHTML=`<span>${t.emoji}</span><div class="tip-pill-text"><h4>${t.title}</h4><p>${t.desc}</p></div>`;
+    tl.appendChild(d);
+  });
+  const sr=document.getElementById('score-reveal');sr.classList.add('on');
+  sr.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// MYTHS
+const MYTHS=[
+  {cat:'Memory & learning',q:'You can fully catch up on lost sleep by sleeping in on the weekend.',a:false,exp:'Weekend sleep-ins can reduce some of the physical effects of sleep debt, but research shows they can\'t fully reverse the cognitive and memory impacts of a disrupted week. They also shift your body clock, making Monday mornings harder.'},
+  {cat:'Circadian rhythm',q:'Teenagers are biologically wired to go to sleep later at night than adults.',a:true,exp:'During puberty, the circadian rhythm shifts by 1–2 hours, making it genuinely harder to feel sleepy before 11pm. This is a real physiological shift driven by hormone changes — not laziness or habit.'},
+  {cat:'Exercise',q:'Exercising right before bed helps you fall asleep faster.',a:false,exp:'Vigorous exercise within 1–2 hours of bedtime raises core body temperature and adrenaline, making it harder to fall asleep. Light stretching or yoga is fine — intense cardio is not.'},
+  {cat:'Brain activity',q:'Your brain is completely inactive during sleep.',a:false,exp:'Your brain is highly active during sleep, especially in REM. It consolidates memories, clears metabolic waste products (including amyloid beta, linked to Alzheimer\'s disease), and processes emotions.'},
+  {cat:'Screens',q:'Looking at your phone in bed has no effect on sleep if you feel fine afterwards.',a:false,exp:'Blue light suppresses melatonin production even when you don\'t subjectively notice it. People who use screens before bed take longer to fall asleep, get less REM, and score lower on memory tests the next day — even when they self-report sleeping fine.'},
+  {cat:'Sleep duration',q:'Everyone needs exactly 8 hours of sleep to function properly.',a:false,exp:'The recommended range for teenagers is 8–10 hours, but individual needs vary. Some people function well at 7.5; others need 9.5. What matters more than a specific number is how you feel and how consistently you\'re meeting your own need.'},
+  {cat:'Snoring',q:'Snoring is normal and harmless.',a:false,exp:'Occasional snoring can be benign, but regular heavy snoring may indicate obstructive sleep apnoea — a serious condition where breathing repeatedly stops during sleep, severely disrupting sleep quality and increasing cardiovascular risk.'},
+  {cat:'Memory & learning',q:'Your memory for what you studied genuinely improves overnight.',a:true,exp:'During sleep, particularly REM and slow-wave sleep, the hippocampus replays and transfers newly acquired information to long-term cortical storage. This is why studying the night before (with a full night\'s sleep) is more effective than cramming the morning of.'},
+  {cat:'Sleep environment',q:'Sleeping in a warm room helps you sleep more deeply.',a:false,exp:'Your core body temperature needs to drop by about 1°C to initiate and maintain deep sleep. A warm room prevents this, leading to more fragmented sleep and fewer deep-sleep periods. Around 18°C is optimal.'},
+  {cat:'Napping',q:'Napping is always bad for your nighttime sleep.',a:false,exp:'Short naps (10–20 minutes) before 3pm can improve alertness and performance without affecting nighttime sleep. Naps longer than 30 minutes or taken late in the day are more likely to interfere with the sleep drive that helps you fall asleep at night.'},
+  {cat:'Alcohol & substances',q:'Alcohol before bed helps you sleep.',a:false,exp:'Alcohol may help you fall asleep faster, but it suppresses REM sleep and causes fragmented, lower-quality sleep in the second half of the night. The overall sleep quality is significantly worse, even if the quantity looks similar.'},
+  {cat:'Growth',q:'Most of your physical growth happens during sleep.',a:true,exp:'70–80% of daily growth hormone is released during Stage 3 (deep) sleep. This is one of the key reasons teenagers need more sleep than adults — their bodies are using sleep for physical development, not just brain restoration.'},
+  {cat:'Snooze button',q:'Hitting the snooze button helps you feel more rested.',a:false,exp:'Snooze sleep is fragmented and too short to complete a meaningful sleep stage, but long enough to start a new sleep cycle — meaning you\'re likely to be woken mid-cycle, leaving you feeling groggier than if you\'d just got up the first time.'},
+  {cat:'Caffeine',q:'Drinking coffee in the afternoon is fine because you can sleep through it.',a:false,exp:'Caffeine blocks adenosine receptors that signal sleepiness. Even if you fall asleep, caffeine consumed after 3pm measurably reduces deep and REM sleep quality — you may not realise it\'s affecting you because you still fall asleep, but the sleep is less restorative.'},
+  {cat:'Dreams',q:'You only dream during REM sleep.',a:false,exp:'While the most vivid and story-like dreams occur during REM, dreams can occur in all sleep stages including Stage 2 and occasionally deep sleep. Non-REM dreams tend to be less emotionally intense and harder to recall.'},
+  {cat:'Sleep debt',q:'You can train yourself to need less sleep over time.',a:false,exp:'Research consistently shows that people adapt to feeling less sleepy on restricted sleep, but their actual cognitive performance remains impaired — they just lose the ability to notice how impaired they are. You cannot sustainably reduce your sleep need through habit.'},
+];
+
+let mythAnswered=new Array(MYTHS.length).fill(null);
+let mythCorrect=0;
+const mythList=document.getElementById('myth-list');
+MYTHS.forEach((m,i)=>{
+  const d=document.createElement('div');d.className='myth-card';
+  d.innerHTML=`<div class="myth-cat">${m.cat}</div><div class="myth-q">${i+1}. ${m.q}</div>
+  <div class="myth-btns" id="mb-${i}"><button class="mbtn" onclick="answerMyth(${i},true)">True</button><button class="mbtn" onclick="answerMyth(${i},false)">False</button></div>
+  <div class="myth-reveal" id="mr-${i}"><div class="mresult" id="mres-${i}"></div><div id="mexp-${i}"></div></div>`;
+  mythList.appendChild(d);
+});
+
+function answerMyth(i,ans){
+  if(mythAnswered[i]!==null)return;
+  mythAnswered[i]=ans;
+  const correct=ans===MYTHS[i].a;
+  if(correct)mythCorrect++;
+  document.querySelectorAll(`#mb-${i} .mbtn`).forEach(b=>{
+    const isT=b.textContent==='True';
+    if(isT===MYTHS[i].a)b.classList.add('correct');
+    else if(isT===ans)b.classList.add('wrong');
+    b.onclick=null;b.style.cursor='default';
+  });
+  const rev=document.getElementById('mr-'+i);rev.classList.add('on');
+  const res=document.getElementById('mres-'+i);
+  res.className='mresult '+(correct?'right':'wrong');
+  res.textContent=correct?'Correct.':'Not quite — '+( MYTHS[i].a?'this is actually true.':'this is actually false.');
+  document.getElementById('mexp-'+i).textContent=MYTHS[i].exp;
+  const answered=mythAnswered.filter(a=>a!==null).length;
+  document.getElementById('mscore').textContent=mythCorrect+' / '+answered;
+  document.getElementById('mprog').style.width=(answered/MYTHS.length*100)+'%';
+  if(answered===MYTHS.length)document.getElementById('mscore-sub').textContent=`Finished! You got ${mythCorrect} out of ${MYTHS.length} correct.`;
+  else document.getElementById('mscore-sub').textContent=`${answered} answered — ${MYTHS.length-answered} remaining`;
+}
+
+// HYGIENE
+const HYGIENE=[
+  {icon:'🕙',title:'Keep a consistent bedtime',desc:'Going to bed and waking at the same time every day — including weekends — is the single most effective sleep habit.',why:'Why: your body clock (circadian rhythm) thrives on predictability. Irregular schedules produce a state similar to chronic jet lag.'},
+  {icon:'📵',title:'Screens off 30 minutes before bed',desc:'Blue light from phones, laptops and TVs suppresses melatonin production and delays the onset of sleep.',why:'Why: melatonin signals to your brain that it\'s dark and time to sleep. Blue light blocks this signal.'},
+  {icon:'🌡️',title:'Keep your room cool',desc:'Around 18°C is the optimal sleeping temperature for most people. Warm rooms reduce deep sleep.',why:'Why: your core body temperature must drop ~1°C to initiate sleep. A cool room accelerates this.'},
+  {icon:'☕',title:'No caffeine after 3pm',desc:'Caffeine has a half-life of 5–6 hours, meaning half of it is still active in your system at 9pm if you had it at 4pm.',why:'Why: caffeine blocks adenosine — the chemical that makes you feel sleepy — even when you don\'t feel its effects.'},
+  {icon:'✏️',title:'Build a 10-minute wind-down',desc:'A short, repeated routine before bed trains your brain to associate that sequence with sleep onset.',why:'Why: the brain learns associations through repetition. A predictable routine signals "sleep is coming".'},
+  {icon:'☀️',title:'Get morning light',desc:'Expose yourself to bright light first thing in the morning to anchor your body clock.',why:'Why: morning light is the primary signal your circadian rhythm uses to set its daily timer. This also makes night-time sleepiness arrive on schedule.'},
+  {icon:'🏃',title:'Exercise earlier in the day',desc:'Regular exercise dramatically improves sleep quality — but keep vigorous workouts more than 2 hours before bed.',why:'Why: exercise raises core temperature and adrenaline. These need to fall before sleep can begin.'},
+  {icon:'📚',title:'Study at your desk, not in bed',desc:'Your brain links where you are with what you do. Studying in bed weakens the bed–sleep association.',why:'Why: this is called stimulus control therapy — one of the most evidence-backed behavioural interventions for insomnia.'},
+  {icon:'💧',title:'Stay hydrated but taper off before bed',desc:'Dehydration disrupts sleep, but drinking too much before bed causes wake-ups. Taper off about 2 hours out.',why:'Why: even mild dehydration (1–2%) measurably reduces slow-wave and REM sleep.'},
+  {icon:'🧘',title:'If you can\'t sleep, get up',desc:'Lying awake for more than 20 minutes teaches your brain that bed is a place to lie awake. Get up and do something quiet until you feel sleepy.',why:'Why: this prevents the anxious association between bed and wakefulness that causes ongoing insomnia.'},
+];
+const hGrid=document.getElementById('hyg-grid');
+HYGIENE.forEach(h=>{
+  const d=document.createElement('div');d.className='hyg-card';
+  d.innerHTML=`<div class="hyg-icon">${h.icon}</div><h3>${h.title}</h3><p>${h.desc}</p><p class="why">${h.why}</p>`;
+  hGrid.appendChild(d);
+});
+
+// RESOURCES
+const RES=[
+  {icon:'💙',title:'Sleep Health Foundation',desc:'Australia\'s leading sleep health organisation — fact sheets, research summaries, and adolescent sleep guidance.',url:'https://www.sleephealthfoundation.org.au'},
+  {icon:'🧠',title:'Black Dog Institute',desc:'Resources on the relationship between sleep and adolescent mental health, from Australia\'s leading mental health research institute.',url:'https://www.blackdoginstitute.org.au'},
+  {icon:'🔬',title:'Murdoch Children\'s Research Institute',desc:'Research on sleep in Australian children and teenagers, including the 1 in 3 statistic cited in this toolkit.',url:'https://www.mcri.edu.au'},
+  {icon:'📄',title:'National Library of Medicine (2023)',desc:'"Sleep Deprivation and Insomnia in Adolescence: Implications for Mental Health" — the key peer-reviewed paper behind this project.',url:'https://pubmed.ncbi.nlm.nih.gov'},
+  {icon:'⚕️',title:'American Academy of Sleep Medicine',desc:'Clinical guidelines on recommended sleep duration for teenagers, used to set the 8–10 hour benchmark in this toolkit.',url:'https://aasm.org'},
+];
+const resList=document.getElementById('res-list');
+RES.forEach(r=>{
+  const d=document.createElement('a');d.className='rlink';d.href=r.url;d.target='_blank';d.rel='noopener';
+  d.innerHTML=`<span class="rlink-icon">${r.icon}</span><div><h3>${r.title}</h3><p>${r.desc}</p></div><span class="rlink-arr">→</span>`;
+  resList.appendChild(d);
+});
+
+// GAME
+const DISTRACTORS=[
+  {emoji:'📱',label:'Phone buzz',dmg:1},
+  {emoji:'☕',label:'Caffeine',dmg:1},
+  {emoji:'💡',label:'Light on',dmg:1},
+  {emoji:'🔊',label:'Noise',dmg:1},
+  {emoji:'🎮',label:'Game alert',dmg:2},
+  {emoji:'📧',label:'Email ping',dmg:1},
+  {emoji:'🍕',label:'Late night snack',dmg:1},
+];
+let gameRunning=false,gameTimer=null,spawnTimer=null;
+let gScore=0,gHealth=3,gTime=30;
+
+function showGameStart(){
+  document.getElementById('game-screen-start').classList.remove('hidden');
+  document.getElementById('game-screen-play').classList.add('hidden');
+  document.getElementById('game-screen-end').classList.add('hidden');
+}
+
+function startGame(){
+  gScore=0;gHealth=3;gTime=30;
+  document.getElementById('game-screen-start').classList.add('hidden');
+  document.getElementById('game-screen-end').classList.add('hidden');
+  document.getElementById('game-screen-play').classList.remove('hidden');
+  document.getElementById('g-score').textContent='Score: 0';
+  document.getElementById('g-timer').textContent='30';
+  updateHearts();
+  document.getElementById('sleeper-status').textContent='💤 Sleeping well';
+  document.getElementById('game-field').querySelectorAll('.distractor').forEach(e=>e.remove());
+  gameRunning=true;
+  gTime=30;
+  gameTimer=setInterval(()=>{
+    gTime--;
+    document.getElementById('g-timer').textContent=gTime;
+    if(gTime<=0||gHealth<=0){endGame();}
+  },1000);
+  spawnTimer=setInterval(spawnDistractor,1200);
+}
+
+function spawnDistractor(){
+  if(!gameRunning)return;
+  const field=document.getElementById('game-field');
+  const rect=field.getBoundingClientRect();
+  const d=DISTRACTORS[Math.floor(Math.random()*DISTRACTORS.length)];
+  const el=document.createElement('div');
+  el.className='distractor';
+  el.textContent=d.emoji;
+  el.title=d.label;
+  const side=Math.floor(Math.random()*4);
+  let x,y,tx,ty;
+  const fw=field.offsetWidth||300,fh=field.offsetHeight||300;
+  const cx=fw/2,cy=fh/2;
+  if(side===0){x=Math.random()*fw;y=-40;tx=cx;ty=cy;}
+  else if(side===1){x=fw+40;y=Math.random()*fh;tx=cx;ty=cy;}
+  else if(side===2){x=Math.random()*fw;y=fh+40;tx=cx;ty=cy;}
+  else{x=-40;y=Math.random()*fh;tx=cx;ty=cy;}
+  el.style.cssText=`left:${x}px;top:${y}px;transition:left 3s linear,top 3s linear`;
+  field.appendChild(el);
+  el.onclick=e=>{
+    if(!gameRunning)return;
+    el.remove();
+    gScore+=10;
+    document.getElementById('g-score').textContent='Score: '+gScore;
+    const pop=document.createElement('div');
+    pop.className='combo-pop';
+    pop.textContent='+10';
+    pop.style.cssText=`left:${e.clientX-20}px;top:${e.clientY-20}px`;
+    document.body.appendChild(pop);
+    setTimeout(()=>pop.remove(),800);
+  };
+  setTimeout(()=>{el.style.left=tx+'px';el.style.top=ty+'px';},50);
+  setTimeout(()=>{
+    if(el.parentNode&&gameRunning){
+      el.remove();
+      gHealth=Math.max(0,gHealth-d.dmg);
+      updateHearts();
+      document.getElementById('sleeper-status').textContent=gHealth>1?'😴 Getting disturbed...':'😩 Almost awake!';
+      if(gHealth<=0)endGame();
+    }
+  },3100);
+}
+
+function updateHearts(){
+  const hearts=['❤️','❤️','❤️'];
+  for(let i=gHealth;i<3;i++)hearts[i]='🖤';
+  document.getElementById('g-health').innerHTML=hearts.map((h,i)=>`<span class="heart${i>=gHealth?' lost':''}">${h}</span>`).join('');
+}
+
+function endGame(){
+  if(!gameRunning)return;
+  gameRunning=false;
+  clearInterval(gameTimer);clearInterval(spawnTimer);
+  document.getElementById('game-field').querySelectorAll('.distractor').forEach(e=>e.remove());
+  document.getElementById('game-screen-play').classList.add('hidden');
+  document.getElementById('game-screen-end').classList.remove('hidden');
+  document.getElementById('g-final-score').textContent=gScore;
+  const msgs=[
+    [0,'Not great — those distractions got through too easily. A bit like trying to sleep with your phone on.'],
+    [50,'Decent effort! You protected some sleep cycles but the distractions were tough.'],
+    [100,'Solid defender! You kept most of the disruptions away from the sleeper.'],
+    [160,'Sleep champion! You blocked almost everything — this is what a good sleep environment looks like.'],
+  ];
+  let msg=msgs[0][1];
+  for(const [threshold,text]of msgs){if(gScore>=threshold)msg=text;}
+  document.getElementById('g-end-msg').textContent=msg;
+}
+</script>
+</body>
+</html>
